@@ -1,0 +1,22 @@
+<div class="card-item bg-white rounded border" id="{{post.id}}">
+    <div class="card-img">
+        <a href="#">
+            <img src="{{post.image}}" alt="Image">
+        </a>
+    </div>
+    <div class="card-details">
+        <div class="card-meta">
+            <ul>
+                <li><a href="#">By: {{post.user.username}}</a></li>
+                <li>Date: {{post.date}}</li>
+            </ul>
+        </div>
+        <h4 class="title mt-2">
+            <a href="#">{{post.title}}</a>
+        </h4>
+        <p class="excerpt">
+            {{post.body}}
+        </p>
+        <a (click)="showPost()" id="{{post.id}}" class="btn">Know more about this post</a>
+    </div>
+</div>

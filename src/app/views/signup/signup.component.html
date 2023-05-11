@@ -1,1 +1,108 @@
-<p>signup works!</p>
+<div *ngIf="dataloaded">
+    <div class="form_wrapper" *ngIf="dataloaded">
+        <div class="form_container">
+            <div class="title_container">
+                <h2>Sign up</h2>
+            </div>
+            <div class="row clearfix">
+                <div class="">
+                    <form>
+                        <div class="input_field select_option">
+                            <h3>Are you an artist or an entrepreneur?</h3>
+                            <select (change)="selectRole($event)">
+                                <option>Artist / Music group</option>
+                                <option>Entrepreneur</option>
+                            </select>
+                            <div class="select_arrow"></div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col_half">
+                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                    <input type="text" name="username" placeholder="User name" [(ngModel)]="username"
+                                        required />
+                                </div>
+                            </div>
+                            <div class="col_half">
+                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                                    <input type="password" name="password" placeholder="Password" [(ngModel)]="password"
+                                        required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                <input type="text" name="address" [(ngModel)]="address" placeholder="Address"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col_half">
+                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                    <input type="email" name="email" placeholder="Email" [(ngModel)]="email" required />
+                                </div>
+                            </div>
+                            <div class="col_half">
+                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                    <input type="text" name="name" placeholder="Your full name" [(ngModel)]="name"
+                                        required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                <input type="text" name="image" placeholder="Paste any link to an image"
+                                    [(ngModel)]="image" required />
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col_half">
+                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                                    <input type="text" name="phoneNumber" placeholder="Phone number"
+                                        [(ngModel)]="phoneNumber" required />
+                                </div>
+                            </div>
+                            <div class="col_half">
+                                <div class="input_field select_option">
+                                    <select (change)="onSelectCountry($event)">
+                                        <option *ngFor="let country of availableCountries" [value]="country.name">
+                                            {{country.name}}</option>
+                                    </select>
+                                    <div class="select_arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="groupOnly" *ngIf="musicGroup">
+                            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                                <input type="text" name="integrants" placeholder="Integrants of the band"
+                                    [(ngModel)]="integrants" />
+                            </div>
+                            <div class="input_field select_option">
+                                <h4>Choose your favorite genres</h4>
+                                <select multiple (click)="selectGenre($event)">
+                                    <option *ngFor="let genre of availableMusicGenres" value="{{genre.name}}">
+                                        {{genre.name}}</option>
+                                </select>
+                                <div id="genresSelected" *ngIf="musicGenres.length > 0">
+                                    <p>Selected genres</p>
+                                    <ul>
+                                        <li *ngFor="let selectedGenre of musicGenres">
+                                            {{selectedGenre}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                            <input type="text" name="description" placeholder="Add a little description of yourself"
+                                [(ngModel)]="description" />
+                        </div>
+                        <div class="error title_container">
+                            <h2>{{errorMessage}}</h2>
+                        </div>
+                        <input class="button" type="submit" value="Register" (click)="register()" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,7 @@
-<h1>Listado de posts</h1>
-
-<ul>
-  <li *ngFor="let post of posts">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.body }}</p>
-  </li>
-</ul>
+<div *ngIf="loadedData">
+    <app-header [user]="currentUser"></app-header>
+    <app-searcher></app-searcher>
+    <div *ngFor="let post of posts">
+        <app-post [post]="post"></app-post>
+    </div>
+</div>

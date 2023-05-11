@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div class="container">
+    <h2 class="login-title">Log in</h2>
+
+    <form class="login-form">
+      <div>
+        <label for="name">Username</label>
+        <input
+               [(ngModel)]="username"
+               type="text"
+               name="username"
+               required
+               />
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input
+               [(ngModel)]="password"
+               type="password"
+               name="password"
+               required
+               />
+      </div>
+
+      <div class="login-form__error" *ngIf="errorMessage != ''">
+        {{ errorMessage }}
+      </div>
+
+      <button class="btn btn--form" type="submit" (click)="onLogin()">
+        Log in
+      </button>
+
+      <div>
+        <a routerLink="/signup">Sign up</a>
+      </div>
+    </form>
+</div>

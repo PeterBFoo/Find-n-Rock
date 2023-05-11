@@ -14,6 +14,7 @@ import { PostViewComponent } from './views/post-view/post-view.component';
 import { MyPostsComponent } from './views/myposts/myposts.component';
 import { SuscribedPostsComponent } from './views/suscribed-posts/suscribed-posts.component';
 import { CreatePostComponent } from './views/create-post/create-post.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CreatePostComponent } from './views/create-post/create-post.component';
     MyPostsComponent,
     SuscribedPostsComponent,
     CreatePostComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

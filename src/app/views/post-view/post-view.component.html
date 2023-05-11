@@ -1,0 +1,22 @@
+<app-header [user]="currentUser"></app-header>
+<div class="post" *ngIf="loadedData">
+    <h1 class="title">{{post.title}}</h1>
+    <div class="post-meta">
+        <ul>
+            <li><a href="#">By: {{post.user.username}}</a></li>
+            <li>Date: {{post.date}}</li>
+        </ul>
+    </div>
+    <div class="post-content">
+        {{post.body}}
+    </div>
+    <div *ngIf="canSuscribe()">
+        <button (click)="suscribeToPost()">Suscribe</button>
+        <div *ngIf="isSuscribed()">
+            <button (click)="unsuscribeToPost()">Unsuscribe</button>
+        </div>
+    </div>
+    <div *ngIf="isOwner()">
+        <button (click)="modifyPost()">Modify your post</button>
+    </div>
+</div>

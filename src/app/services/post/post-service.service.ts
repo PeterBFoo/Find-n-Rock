@@ -15,11 +15,19 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.apiUrl, { withCredentials: true });
+    return this.http.get<Post[]>(this.apiUrl, {
+      headers: {
+        "authorization": `Bearer ${localStorage.getItem("token")}`
+      }, withCredentials: false
+    });
   }
 
   getPost(id: number): Observable<Post> {
-    return this.http.get<Post>(`${this.onePost}/${id}`, { withCredentials: true });
+    return this.http.get<Post>(`${this.onePost}/${id}`, {
+      headers: {
+        "authorization": `Bearer ${localStorage.getItem("token")}`
+      }, withCredentials: false
+    });
   }
 
 }

@@ -14,21 +14,27 @@ export class UserService extends RootInjectorGuard {
   private userInRequest!: User;
   private profile = 'http://localhost:3000/api/auth/profile';
   private loginUrl = 'http://localhost:3000/api/login';
+  private signupUrl = 'http://localhost:3000/api/register';
+  private updateUserUrl = 'http://localhost:3000/api/auth/profile/edit';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
     super(UserService)
   }
 
   getUser(): User {
-    return this.userInRequest;
+    return this.userInRequest ? this.userInRequest : JSON.parse(localStorage.getItem('user')!);
   }
 
   setUser(user: User) {
     this.userInRequest = user;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   getProfile(): Observable<User> {
     return this.http.get<User>(this.profile, {
+      headers: {
+        "authorization": `Bearer ${this.getToken()}`
+      },
       withCredentials: true
     })
   }
@@ -39,18 +45,27 @@ export class UserService extends RootInjectorGuard {
   }
 
   setToken(token: string) {
-    this.cookieService.set("auth-token", token, 7, "/");
+    localStorage.setItem('token', token);
   }
 
   getToken() {
-    return this.cookieService.get("auth-token");
+    return localStorage.getItem('token');
   }
 
   logout() {
-    this.cookieService.delete("auth-token", "/");
+    localStorage.removeItem('token');
   }
 
   signup(user: any): Observable<any> {
-    return this.http.post<User>("http://localhost:3000/api/register", user);
+    return this.http.post<User>(this.signupUrl, user);
+  }
+
+  updateUser(changes: any): Observable<User> {
+    return this.http.post<User>(this.updateUserUrl, changes, {
+      headers: {
+        "authorization": `Bearer ${this.getToken()}`
+      },
+      withCredentials: true
+    });
   }
 }

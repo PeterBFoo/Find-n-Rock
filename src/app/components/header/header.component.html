@@ -5,18 +5,19 @@
     <div class="line"></div>
     <div class="line"></div>
   </div>
-  <div id="menu">
+  <nav id="menu">
     <ul>
       <h4>{{username}}</h4>
       <img src="{{userimage}}">
+      <li><a routerLink="/user/profile">My profile</a></li>
       <div *ngIf="isGroup">
-        <li><a href="#">Suscribed posts</a></li>
+        <li><a routerLink="/user/posts/suscribed">Suscribed posts</a></li>
       </div>
       <div *ngIf="isEntrepreneur">
-        <li><a href="#">Create new post</a></li>
-        <li><a href="#">My posts</a></li>
+        <li><a routerLink="/posts/create">Create new post</a></li>
+        <li><a routerLink="/user/posts">My posts</a></li>
       </div>
       <li><a (click)="onLogout()">Log out</a></li>
     </ul>
-  </div>
+  </nav>
 </header>

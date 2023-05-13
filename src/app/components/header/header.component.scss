@@ -1,154 +1,129 @@
-body {
-    margin: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    overflow-x:hidden;
-    background-color: rgb(83, 77, 77);
-  }
-  
-  header {
-    top: 0;
-    left: 0;
-    position: fixed;
-    background-color: rgb(83, 77, 77);
-    width: 100%;
-    color: white;
-  }
-  
-  img {
-    width: 70px;
-    margin: 10px 0 10px 20px;
-  }
-  
-  #burgermenu {
-    cursor: pointer;
-    width: 50px;
-    float: right;
-    margin-top: 25px;
-    margin-right: 25px;
-  }
-  
-  .line {
-    transition: 500ms;
-    width: 50px;
-    height: 8px;
-    background-color: white;
-    border-radius: 1rem;
-    float: right;
-    margin-bottom: 8px;
-  }
-  
-  #menu {
-    z-index: 100;
-    width: 350px;
-    transition: 500ms;
-    transform: translateX(100%);
-    position: absolute;
-    right: 0px;
-    top: 80px;
-    color: white;
-    background-color: rgb(83, 77, 77);
-    padding: 20px 0 20px 0;
-    border-radius: 0 0 0 1rem;
-  }
-  
-  #menu h4 {
-    margin-right: -20px;
-    font-size: 25px;
-  }
-  
-  #menu img {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    width: 70px;
-    border-radius: 50%;
-    border: 2px solid white;
-  }
-  
-  ul {
-    margin: 0;
-  }
-  
-  li {
-    margin-top: 0;
-    list-style: square;
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 20px;
-  }
-  
-  a {
-    transition: 500ms;
-    color: white;
-    text-decoration: none;
-  }
-  
-  a:hover{
-    text-decoration: underline;
-    color: lightgray;
-  }
-  
-  #content {
-    font-family: 'Kanit', sans-serif;
-    position: relative;
-    border: 1px solid white;
-    border-radius: 2rem;
-    margin: 40vh 0 30vh 0;
-    color: white;
-    width: 75vw;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  h1 {
-    margin-bottom: -20px; 
-  }
-  
-  footer {
-    position: absolute;
-    width: 100vw;
-    border-radius: 1rem 1rem 0 0;
-    background-color: rgb(22,22,22);
-    bottom: 0;
-  }
-  
-  footer img {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 20px 0 20px 0;
-    height: 30px;
-    width: auto;
-  }
-  
-  #line {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    background-color: gray;
-    height: 2px;
-    margin-bottom: 30px;
-  }
-  
-  h3 {
-    color: darkgray;
-    margin-left: 10vw;
-  }
-  
-  #links {
-    position: absolute;
-    top: 87px;
-    right: 10vw;
-  }
-  
-  #links a {
-    color: darkgray;
-  }
-  
-  span {
-    margin-left: 30px;
-  }
-  
-  
+header {
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: rgb(83, 77, 77);
+  width: 100%;
+  z-index: 100;
+  color: white;
+}
+
+img {
+  width: 70px;
+  margin: 10px 0 10px 20px;
+}
+
+#burgermenu {
+  cursor: pointer;
+  width: 50px;
+  float: right;
+  margin-top: 25px;
+  margin-right: 25px;
+}
+
+.line {
+  transition: 500ms;
+  width: 50px;
+  height: 8px;
+  background-color: white;
+  border-radius: 1rem;
+  float: right;
+  margin-bottom: 8px;
+}
+
+#menu {
+  z-index: 100;
+  width: 350px;
+  transition: 500ms;
+  transform: translateX(100%);
+  position: absolute;
+  right: 0px;
+  top: 80px;
+  color: white;
+  background-color: rgb(83, 77, 77);
+  padding: 20px 0 20px 0;
+  border-radius: 0 0 0 1rem;
+}
+
+#menu h4 {
+  margin-right: -20px;
+  font-size: 25px;
+}
+
+#menu img {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 70px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+ul {
+  margin: 0;
+}
+
+li {
+  margin-top: 0;
+  list-style: square;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+a {
+  transition: 500ms;
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: lightgray;
+}
+
+#content {
+  font-family: "Kanit", sans-serif;
+  position: relative;
+  border: 1px solid white;
+  border-radius: 2rem;
+  margin: 40vh 0 30vh 0;
+  color: white;
+  width: 75vw;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h1 {
+  margin-bottom: -20px;
+}
+
+#line {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  background-color: gray;
+  height: 2px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  color: darkgray;
+  margin-left: 10vw;
+}
+
+#links {
+  position: absolute;
+  top: 87px;
+  right: 10vw;
+}
+
+#links a {
+  color: darkgray;
+}
+
+span {
+  margin-left: 30px;
+}

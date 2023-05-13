@@ -22,18 +22,9 @@ export class HomeComponent {
   ngOnInit(): void {
     if (!this.userService.getToken()) {
       this.router.navigate(['/login']);
+      return
     }
-
-    if (this.userService.getUser() == null) {
-      this.userService.getProfile().subscribe((user: User) => {
-        this.currentUser = user;
-        this.userService.setUser(user);
-        console.log(this.userService.getUser());
-      });
-    } else {
-      this.currentUser = this.userService.getUser();
-      this.loadedData = true;
-    }
+    this.currentUser = this.userService.getUser();
 
     this.postService.getAllPosts().subscribe((posts: Post[]) => {
       this.posts = posts;

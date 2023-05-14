@@ -4,6 +4,7 @@ import { Post } from '../../services/interfaces/PostInterface';
 import { PostService } from '../../services/post/post-service.service';
 import { User } from '../../services/interfaces/UserInterface';
 import { UserService } from '../../services/user/user.service';
+import { SearchData } from 'src/app/components/searcher/interfaces/SearchEventInterface';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,21 @@ export class HomeComponent {
     this.postService.getAllPosts().subscribe((posts: Post[]) => {
       this.posts = posts;
       this.loadedData = true;
+    });
+  }
+
+  onNewSearch(searchData: any) {
+    console.log(searchData)
+
+    if (!searchData) {
+      this.postService.getAllPosts().subscribe((posts: Post[]) => {
+        this.posts = posts;
+      });
+      return;
+    }
+
+    this.postService.getPostsByFilters(searchData).subscribe((posts: Post[]) => {
+      this.posts = posts;
     });
   }
 }

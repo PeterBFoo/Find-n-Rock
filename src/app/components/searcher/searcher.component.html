@@ -1,1 +1,45 @@
-<p>searcher works!</p>
+<div *ngIf="dataLoaded">
+    <div class="col-md-3">
+        <form>
+            <div class="mb-3">
+                <h5 class="fw-bold">Filters</h5>
+            </div>
+            <div class="mb-3">
+                <label for="genre" class="form-label">Music genres</label>
+                <select (change)="onSelectGenre($event)" class="form-select" id="genre">
+                    <option value="">Choose a genre</option>
+                    <option [value]="genre.name" *ngFor="let genre of genres">{{genre.name}}</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <select (change)="onSelectCountry($event)" class=" form-select" id="country">
+                    <option value="">Choose a country</option>
+                    <option [value]="country.code + ',' + country.name" *ngFor="let country of countries">
+                        {{country.name}}</option>
+                </select>
+            </div>
+            <div *ngIf="regionsLoaded">
+                <div class="mb-3">
+                    <label for="region" class="form-label">Region</label>
+                    <select (change)="onSelectRegion($event)" class="form-select" id="region">
+                        <option value="">Choose a region</option>
+                        <option [value]="region.countryCode + ',' + region.isoCode + ',' + region.name"
+                            *ngFor="let region of regions">
+                            {{region.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="citiesLoaded">
+                <div class="mb-3">
+                    <label for="region" class="form-label">City</label>
+                    <select (change)="onSelectCity($event)" class="form-select" id="region">
+                        <option value="">Choose a city</option>
+                        <option value="{{city.name}}" *ngFor="let city of cities">{{city.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" (click)="searchPosts()" class="btn btn-dark">Buscar</button>
+        </form>
+    </div>
+</div>

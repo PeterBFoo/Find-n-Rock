@@ -22,6 +22,16 @@ export class PostService {
     });
   }
 
+  getPostsByFilters(filters: any): Observable<Post[]> {
+    let url = `${this.apiUrl}?country=${filters.country}&region=${filters.region}&city=${filters.city}&genres=${filters.genre}`;
+
+    return this.http.get<Post[]>(url, {
+      headers: {
+        "authorization": `Bearer ${localStorage.getItem("token")}`
+      }, withCredentials: false
+    });
+  }
+
   getPost(id: number): Observable<Post> {
     return this.http.get<Post>(`${this.onePost}/${id}`, {
       headers: {

@@ -1,3 +1,6 @@
+<div *ngIf="!dataloaded">
+    <app-spinner></app-spinner>
+</div>
 <div *ngIf="dataloaded">
     <div class="form_wrapper" *ngIf="dataloaded">
         <div class="form_container">
@@ -73,22 +76,24 @@
                         </div>
                         <div class="groupOnly" *ngIf="musicGroup">
                             <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                                <input type="text" name="integrants" placeholder="Integrants of the band"
+                                <input type="number" name="integrants" placeholder="Integrants of the band"
                                     [(ngModel)]="integrants" />
                             </div>
-                            <div class="input_field select_option">
-                                <h4>Choose your favorite genres</h4>
-                                <select multiple (click)="selectGenre($event)">
-                                    <option *ngFor="let genre of availableMusicGenres" value="{{genre.name}}">
-                                        {{genre.name}}</option>
-                                </select>
-                                <div id="genresSelected" *ngIf="musicGenres.length > 0">
-                                    <p>Selected genres</p>
-                                    <ul>
-                                        <li *ngFor="let selectedGenre of musicGenres">
-                                            {{selectedGenre}}
-                                        </li>
-                                    </ul>
+                            <div *ngIf="availableMusicGenres.length > 0">
+                                <div class="input_field select_option">
+                                    <h4>Choose your favorite genres</h4>
+                                    <select multiple (click)="selectGenre($event)">
+                                        <option *ngFor="let genre of availableMusicGenres" value="{{genre.name}}">
+                                            {{genre.name}}</option>
+                                    </select>
+                                    <div id="genresSelected" *ngIf="musicGenres.length > 0">
+                                        <p>Selected genres</p>
+                                        <ul>
+                                            <li *ngFor="let selectedGenre of musicGenres">
+                                                {{selectedGenre}}
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

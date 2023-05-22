@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { MusicGenre } from 'src/app/services/interfaces/MusicGenreInterface';
 import { MusicGenreService } from 'src/app/services/musicGenre/music-genre.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { CountriesService } from 'src/app/util/services/countries.service';
-import { CountriesData } from 'src/app/util/services/interfaces/CountriesInterface';
-import { Country } from 'src/app/util/services/interfaces/CountryInterface';
+import { CountriesService } from 'src/app/shared/countries/countries.service';
+import { CountriesData } from 'src/app/shared/countries/interfaces/CountriesInterface';
+import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
 import { catchError } from 'rxjs';
 
 @Component({
@@ -25,9 +25,9 @@ export class SignupComponent {
   address: string = "";
   phoneNumber: string = "";
   country: string = "";
-  integrants: string = "";
+  integrants: number = 0;
   image: string = "";
-  musicGenres: MusicGenre[] = [];
+  musicGenres: string[] = [];
   dataloaded: boolean = false;
 
   availableCountries: Country[] = [];
@@ -52,7 +52,7 @@ export class SignupComponent {
       this.validateFields();
 
       if (this.entrepreneur) {
-        this.userService.signup({
+        let entrepreneur = {
           username: this.username,
           password: this.password,
           name: this.name,
@@ -63,7 +63,8 @@ export class SignupComponent {
           image: this.image,
           description: this.description,
           role: "entrepreneur"
-        }).pipe(
+        }
+        this.userService.signupEntrepreneur(entrepreneur).pipe(
           catchError((error: any) => {
             this.errorMessage = error.error;
             console.log(this.errorMessage);
@@ -73,7 +74,7 @@ export class SignupComponent {
             this.router.navigate(['/login']);
           });
       } else {
-        this.userService.signup({
+        let musicGroup = {
           username: this.username,
           password: this.password,
           name: this.name,
@@ -84,9 +85,11 @@ export class SignupComponent {
           image: this.image,
           description: this.description,
           integrants: this.integrants,
-          musicGenres: this.musicGenres,
+          musicalGenres: this.musicGenres,
           role: "group"
-        }).pipe(
+        }
+
+        this.userService.signupMusicGroup(musicGroup).pipe(
           catchError((error: any) => {
             this.errorMessage = error.error;
             throw error;
@@ -143,5 +146,18 @@ export class SignupComponent {
         throw this.errorMessage;
       }
     });
+
+    let emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(this.email)) {
+      this.errorMessage = "Please enter a valid email";
+      throw this.errorMessage;
+    }
+
+    let imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+
+    if (!imageRegex.test(this.image)) {
+      this.errorMessage = "Please enter a valid image url";
+      throw this.errorMessage;
+    }
   }
 }

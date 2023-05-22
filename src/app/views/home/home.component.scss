@@ -1,0 +1,17 @@
+.custom-container {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* Clase para reducir el tamaño de la imagen */
+.small-image {
+    max-width: 50%;
+    max-height: 50%;
+}

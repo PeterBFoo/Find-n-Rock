@@ -17,14 +17,12 @@ export class HomeComponent {
   currentUser!: User;
   loadedData: boolean = false;
 
+  postsNotFoundImage: string = 'assets/images/posts_not_found.jpeg'
+
   constructor(private postService: PostService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
-    if (!this.userService.getToken()) {
-      this.router.navigate(['/login']);
-      return
-    }
     this.currentUser = this.userService.getUser();
 
     this.postService.getAllPosts().subscribe((posts: Post[]) => {

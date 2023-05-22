@@ -1,30 +1,27 @@
+<app-header [user]="currentUser"></app-header>
+<div *ngIf="!loadedData">
+    <app-spinner></app-spinner>
+</div>
 <div *ngIf="loadedData">
-    <app-header [user]="currentUser"></app-header>
     <br><br><br><br><br><br>
-    <div class="container">
+    <div class="custom-container">
         <div class="row">
             <div class="col-md-3">
                 <app-searcher (searchEvent)="onNewSearch($event)"></app-searcher>
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div *ngFor="let post of posts">
-                        <app-post [post]="post"></app-post>
-                    </div>
+                    <ng-container *ngIf="posts.length > 0; else noPostsFound">
+                        <div *ngFor="let post of posts">
+                            <app-post [post]="post"></app-post>
+                        </div>
+                    </ng-container>
+                    <ng-template #noPostsFound>
+                        <h4 class="center fw-bold">Oops! We couln't find any posts matching your criteria</h4>
+                        <br><br><br><br><br><br>
+                        <img class="center small-image" src="{{ postsNotFoundImage }}">
+                    </ng-template>
                 </div>
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>

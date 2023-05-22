@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 import { CountriesData } from './interfaces/CountriesInterface';
 import { Region } from './interfaces/RegionsInterface';
 import { City } from './interfaces/CitiesInterface';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CountriesService {
 
-    private countriesUrl = 'https://wft-geo-db.p.rapidapi.com/v1/geo/countries';
-    private apiKey = '516cd590b4mshd61ecf6bead6f7dp12b432jsn1fcbe0fca825';
-    private apiHost = 'wft-geo-db.p.rapidapi.com';
+    private countriesUrl = environment.countriesUrl;
+    private apiKey = environment.apiKey;
+    private apiHost = environment.apiHost;
 
     constructor(private http: HttpClient) { }
 

@@ -3,22 +3,25 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/UserInterface';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { RootInjectorGuard } from '../../util/guards/rootInjectionGuard';
+import { Entrepreneur } from './interfaces/EntrepreneurInterface';
+import { MusicGroup } from './interfaces/MusicGroupInterface';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends RootInjectorGuard {
+export class UserService {
 
   private userInRequest!: User;
-  private profile = 'http://localhost:3000/api/auth/profile';
-  private loginUrl = 'http://localhost:3000/api/login';
-  private signupUrl = 'http://localhost:3000/api/register';
-  private updateUserUrl = 'http://localhost:3000/api/auth/profile/edit';
+  private baseUrl = environment.apiUrl;
+
+  private profile = this.baseUrl + '/auth/profile';
+  private loginUrl = this.baseUrl + '/login';
+  private signupUrl = this.baseUrl + '/register';
+  private updateUserUrl = this.baseUrl + '/auth/profile/edit';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    super(UserService)
   }
 
   getUser(): User {
@@ -32,9 +35,6 @@ export class UserService extends RootInjectorGuard {
 
   getProfile(): Observable<User> {
     return this.http.get<User>(this.profile, {
-      headers: {
-        "authorization": `Bearer ${this.getToken()}`
-      },
       withCredentials: true
     })
   }
@@ -45,26 +45,28 @@ export class UserService extends RootInjectorGuard {
   }
 
   setToken(token: string) {
-    localStorage.setItem('token', token);
+    this.cookieService.set('auth-token', token);
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return this.cookieService.get('auth-token');
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.cookieService.delete('auth-token');
+    localStorage.removeItem('user');
   }
 
-  signup(user: any): Observable<any> {
+  signupMusicGroup(user: MusicGroup): Observable<any> {
+    return this.http.post<User>(this.signupUrl, user);
+  }
+
+  signupEntrepreneur(user: Entrepreneur): Observable<any> {
     return this.http.post<User>(this.signupUrl, user);
   }
 
   updateUser(changes: any): Observable<User> {
     return this.http.post<User>(this.updateUserUrl, changes, {
-      headers: {
-        "authorization": `Bearer ${this.getToken()}`
-      },
       withCredentials: true
     });
   }

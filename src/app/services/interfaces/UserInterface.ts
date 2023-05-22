@@ -1,3 +1,4 @@
+import { MusicGenre } from "./MusicGenreInterface";
 import { Role } from "./RoleInterface";
 
 export interface User {
@@ -12,6 +13,6 @@ export interface User {
     address: string,
     phone: string,
     integrants: number | null,
-    musicalGenres: null,
+    musicalGenres: MusicGenre[],
     id: number
 }

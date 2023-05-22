@@ -11,11 +11,5 @@ import { UserService } from './services/user/user.service';
 export class AppComponent {
   title = 'Find-n-Rock';
 
-  constructor(private router: Router, private userService: UserService) { }
-
-  ngOnChanges(): void {
-    if (!this.userService.getToken()) {
-      this.router.navigate(['/login']);
-    }
-  }
+  constructor() { }
 }

@@ -1,22 +1,66 @@
 <app-header [user]="currentUser"></app-header>
-<div class="post" *ngIf="loadedData">
-    <h1 class="title">{{post.title}}</h1>
-    <div class="post-meta">
-        <ul>
-            <li><a href="#">By: {{post.user.username}}</a></li>
-            <li>Date: {{post.date}}</li>
-        </ul>
-    </div>
-    <div class="post-content">
-        {{post.body}}
-    </div>
-    <div *ngIf="canSuscribe()">
-        <button (click)="suscribeToPost()">Suscribe</button>
-        <div *ngIf="isSuscribed()">
-            <button (click)="unsuscribeToPost()">Unsuscribe</button>
+<br><br><br><br><br><br>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Job Offer</title>
+</head>
+
+<div class="custom-container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{post.image}}" class="card-img h-100">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">{{post.title}}</h4>
+                            <h5 class="card-subtitle mb-2 text-muted">{{post.user.username}}</h5>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Location</strong></p>
+                                    <p>{{post.country}}, {{post.region}}, {{post.city}}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Related music genres:</strong></p>
+                                    <span *ngFor="let genre of post.genres">
+                                        {{genre.name}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h5 class="fw-bold">{{post.subtitle}}</h5>
+                <p>Created/updated at: <strong>{{dateOfCreation}}</strong></p>
+                <hr>
+                <h5 class="text-muted">Description</h5>
+
+                <p>{{post.body}}</p>
+            </div>
         </div>
-    </div>
-    <div *ngIf="isOwner()">
-        <button (click)="modifyPost()">Modify your post</button>
+        <div class="col-md-4">
+            <div *ngIf="matchesDesiredGenres" class="alert alert-success alert-dismissible">
+                <div class="d-inline-block">
+                    <h6><strong>This post matches your preferences!</strong></h6>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary mx-2" *ngIf="isPostOwner()" (click)="editPost()">Modify post</button>
+                <button class="btn btn-danger mx-2" *ngIf="isPostOwner()" (click)="deletePost()">Delete post</button>
+                <button class="btn btn-success mx-2" *ngIf="canSuscribe() && !isSuscribed()"
+                    (click)="suscribeToPost()">Sign me in!</button>
+                <button class="btn btn-danger mx-2" *ngIf="canSuscribe() && isSuscribed()"
+                    (click)="unsuscribeToPost()">Unsuscribe</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -14,40 +14,80 @@ export class PostViewComponent {
 
   post!: Post;
   currentUser: User;
+  dateOfCreation!: string;
   loadedData: boolean = false;
+  matchesDesiredGenres = false;
 
   constructor(private postService: PostService, private userService: UserService, private route: ActivatedRoute) {
     this.currentUser = this.userService.getUser();
-    console.log(this.currentUser);
     this.route.params.subscribe(params => {
       this.postService.getPost(params['id']).subscribe((post: Post) => {
         this.post = post;
+        let postDate = new Date(post.date)
+        this.dateOfCreation = postDate.toUTCString()
         this.loadedData = true;
+
+        if (this.matchesDesiredGenrerWithUser(post)) this.matchesDesiredGenres = true;
       });
     });
   }
 
   suscribeToPost() {
-    return true;
+    this.postService.suscribeToPost(this.post.id).subscribe((post: Post) => {
+      this.post = post;
+    });
   }
 
   isSuscribed() {
-    return false;
+    let suscriptions = this.post.suscriptions;
+    let suscribed = false;
+
+    for (let i = 0; i < suscriptions.length; i++) {
+      if (suscriptions[i].id == this.currentUser.id) {
+        suscribed = true;
+        break;
+      }
+    }
+
+    return suscribed;
   }
 
   unsuscribeToPost() {
-    return true;
+    this.postService.unsuscribeToPost(this.post.id).subscribe((post: Post) => {
+      this.post = post;
+    });
   }
 
-  modifyPost() {
-    return true;
-  }
-
-  isOwner() {
+  isPostOwner() {
     return this.currentUser.id == this.post.user.id;
+  }
+
+  editPost() {
+    return true;
+  }
+
+  deletePost() {
+    return true;
   }
 
   canSuscribe() {
     return this.currentUser.role.canSubscribe;
+  }
+
+  private matchesDesiredGenrerWithUser(post: Post) {
+    let matches = false;
+    let postGenres = post.genres;
+    let userGenres = this.currentUser?.musicalGenres;
+
+    console.log(this.currentUser)
+    if (!userGenres) return false;
+
+    postGenres.forEach((genre, i) => {
+      if (userGenres[i]?.name == genre.name) {
+        matches = true;
+      }
+    })
+
+    return matches;
   }
 }

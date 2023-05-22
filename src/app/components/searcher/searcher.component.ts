@@ -2,10 +2,10 @@ import { combineLatest } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MusicGenre } from 'src/app/services/interfaces/MusicGenreInterface';
 import { MusicGenreService } from 'src/app/services/musicGenre/music-genre.service';
-import { CountriesService } from 'src/app/util/services/countries.service';
-import { Country } from 'src/app/util/services/interfaces/CountryInterface';
-import { City } from 'src/app/util/services/interfaces/CitiesInterface';
-import { Region } from 'src/app/util/services/interfaces/RegionsInterface';
+import { CountriesService } from 'src/app/shared/countries/countries.service';
+import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
+import { City } from 'src/app/shared/countries/interfaces/CitiesInterface';
+import { Region } from 'src/app/shared/countries/interfaces/RegionsInterface';
 import { SearchData } from './interfaces/SearchEventInterface';
 
 @Component({
@@ -18,11 +18,14 @@ export class SearcherComponent implements OnInit {
 
   genres!: MusicGenre[];
   selectedGenre: string = "";
+  genresLoaded: boolean = false;
 
   countries!: Country[];
+  countryData: string = "";
   selectedCountry: string = "";
 
   regions: Region[] = [];
+  regionData: string = "";
   selectedRegion: string = "";
   regionsLoaded: boolean = false;
 
@@ -35,28 +38,25 @@ export class SearcherComponent implements OnInit {
   constructor(private genreService: MusicGenreService, private countryService: CountriesService) { }
 
   ngOnInit(): void {
-    combineLatest([
-      this.genreService.getAllMusicGenres(),
-      this.countryService.getAllCountries()
-    ]).subscribe(([genres, countries]) => {
+    this.genreService.getAllMusicGenres().subscribe((genres) => {
       this.genres = genres;
+      this.genresLoaded = true;
+    })
+
+    this.countryService.getAllCountries().subscribe((countries) => {
       this.countries = countries.data;
-      this.dataLoaded = true;
-    });
+      this.dataLoaded = true
+    })
   }
 
-  onSelectGenre($e: any): void {
-    this.selectedGenre = $e.target.value;
-  }
-
-  onSelectCountry($e: any): void {
-    if ($e.target.value === "") {
+  onSelectCountry(): void {
+    if (this.countryData === "") {
       this.selectedCountry = "";
       this.removeSelectedCityAndRegion();
       return;
     }
 
-    let countryInfo = $e.target.value.split(',');
+    let countryInfo = this.countryData.split(',');
     let countryCode = countryInfo[0];
     this.selectedCountry = countryInfo[1];
     this.removeSelectedCityAndRegion();
@@ -67,30 +67,18 @@ export class SearcherComponent implements OnInit {
     });
   }
 
-  onSelectRegion($e: any): void {
-    if ($e.target.value === "") {
-      this.selectedRegion = "";
-      this.removeSelectedCity();
-      return;
-    }
-
-    let regionInfo = $e.target.value.split(',');
-
+  onSelectRegion(): void {
+    let regionInfo = this.regionData.split(',');
     let countryCode = regionInfo[0];
     let regionCode = regionInfo[1];
-    let regionName = regionInfo[2];
+    this.selectedRegion = regionInfo[2];
 
-    this.selectedRegion = regionName;
     this.removeSelectedCity();
 
     this.countryService.getCitiesOfRegionAndContry(countryCode, regionCode).subscribe((cities: any) => {
       this.cities = cities.data;
       this.citiesLoaded = true;
     });
-  }
-
-  onSelectCity($e: any): void {
-    this.selectedCity = $e.target.value;
   }
 
   searchPosts(): void {
@@ -104,6 +92,19 @@ export class SearcherComponent implements OnInit {
     this.searchEvent.emit(searchData);
   }
 
+  areFiltersActive(): boolean {
+    return this.selectedGenre !== "" || this.selectedCountry !== "" || this.selectedRegion !== "" || this.selectedCity !== "";
+  }
+
+  removeFilters(): void {
+    this.selectedGenre = "";
+    this.countryData = "";
+    this.selectedCountry = "";
+    this.removeSelectedCityAndRegion();
+
+    this.searchPosts();
+  }
+
   private removeSelectedCityAndRegion(): void {
     this.removeSelectedRegion();
     this.removeSelectedCity();
@@ -112,6 +113,7 @@ export class SearcherComponent implements OnInit {
   private removeSelectedRegion(): void {
     this.regionsLoaded = false;
     this.regions = [];
+    this.regionData = "";
     this.selectedRegion = "";
   }
 

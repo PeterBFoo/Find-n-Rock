@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Post } from 'src/app/services/interfaces/PostInterface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post/post-service.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/services/interfaces/UserInterface';
@@ -18,7 +18,7 @@ export class PostViewComponent {
   loadedData: boolean = false;
   matchesDesiredGenres = false;
 
-  constructor(private postService: PostService, private userService: UserService, private route: ActivatedRoute) {
+  constructor(private postService: PostService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.currentUser = this.userService.getUser();
     this.route.params.subscribe(params => {
       this.postService.getPost(params['id']).subscribe((post: Post) => {
@@ -63,11 +63,13 @@ export class PostViewComponent {
   }
 
   editPost() {
-    return true;
+    this.router.navigate(["/post", "edit", this.post.id])
   }
 
   deletePost() {
-    return true;
+    this.postService.deletePost(this.post.id).subscribe(() => {
+      this.router.navigate(["/home"]);
+    })
   }
 
   canSuscribe() {

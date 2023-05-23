@@ -1,1 +1,43 @@
-<p>myposts works!</p>
+<app-header [user]="currentUser"></app-header>
+<div *ngIf="!loadedData">
+    <app-spinner></app-spinner>
+</div>
+<div *ngIf="loadedData">
+    <br><br><br><br><br><br>
+    <div class="custom-container">
+        <div class="row mx-5">
+            <select [(ngModel)]="mode" name="mode" class="form-select w-25 float-start mb-5" id="mode"
+                (change)="onChangeMode()">
+                <option value="created">Created posts</option>
+                <option value="inactive">Old posts</option>
+            </select>
+
+            <div *ngIf="mode == 'created'">
+                <ng-container *ngIf="posts.length > 0; else noPostsFound">
+                    <div *ngFor="let post of posts">
+                        <app-post-owner (deletePostEvent)="deletePost($event)" [post]="post"></app-post-owner>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div *ngIf="mode == 'inactive'">
+                <ng-container *ngIf="posts.length > 0; else noOldPostsFound">
+                    <div *ngFor="let post of posts">
+                        <app-post-owner [post]="post"></app-post-owner>
+                    </div>
+                </ng-container>
+            </div>
+
+            <ng-template #noPostsFound>
+                <h4 class="center fw-bold">You haven't created any posts</h4>
+                <br><br><br><br><br><br>
+                <img class="center small-image" src="{{ postsNotFoundImage }}">
+            </ng-template>
+            <ng-template #noOldPostsFound>
+                <h4 class="center fw-bold">You don't have any old posts</h4>
+                <br><br><br><br><br><br>
+                <img class="center small-image" src="{{ postsNotFoundImage }}">
+            </ng-template>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ import { SuscribedPostsComponent } from './views/suscribed-posts/suscribed-posts
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AuthEntrepreneurGuard } from './shared/guards/auth-entrepreneur.guard';
 import { AuthMusicGroupGuard } from './shared/guards/auth-music-group.guard';
+import { EditPostComponent } from './views/edit-post/edit-post.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'user/posts', component: MyPostsComponent, canActivate: [AuthGuard, AuthEntrepreneurGuard] },
   { path: 'user/posts/suscribed', component: SuscribedPostsComponent, canActivate: [AuthGuard, AuthMusicGroupGuard] },
   { path: 'posts/create', component: CreatePostComponent, canActivate: [AuthGuard, AuthEntrepreneurGuard] },
+  { path: 'post/edit/:id', component: EditPostComponent, canActivate: [AuthGuard, AuthEntrepreneurGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 ];

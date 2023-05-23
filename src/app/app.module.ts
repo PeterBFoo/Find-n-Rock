@@ -17,6 +17,8 @@ import { CreatePostComponent } from './views/create-post/create-post.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SuscriptionComponent } from './components/suscription/suscription.component';
+import { PostOwnerComponent } from './components/post-owner/post-owner.component';
+import { EditPostComponent } from './views/edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { SuscriptionComponent } from './components/suscription/suscription.compo
     ProfileComponent,
     SpinnerComponent,
     SuscriptionComponent,
+    PostOwnerComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,

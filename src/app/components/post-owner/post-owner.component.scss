@@ -1,0 +1,23 @@
+.post {
+    margin: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.post:hover {
+    transform: scale(1.01);
+    transition: transform 0.3s ease-in-out;
+}
+
+.post img {
+    height: 100%;
+    width: 100%;
+    max-height: 300px;
+    max-width: 300px;
+    object-fit: cover;
+    border: 2px solid rgb(34, 37, 41);
+    border-radius: 3%;
+}

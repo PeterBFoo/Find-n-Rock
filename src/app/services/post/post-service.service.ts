@@ -17,6 +17,9 @@ export class PostService {
   private suscribeToPostUrl = this.baseUrl + '/auth/posts/suscribe';
   private unsuscribeToPostUrl = this.baseUrl + '/auth/posts/unsuscribe';
   private suscribedPostsUrl = this.baseUrl + '/auth/suscribed/posts';
+  private historyPostsUrl = this.baseUrl + '/auth/history/posts';
+  private deletePostUrl = this.baseUrl + '/auth/posts/delete';
+  private updatePostUrl = this.baseUrl + '/auth/posts/edit';
 
   constructor(private http: HttpClient) { }
 
@@ -48,6 +51,24 @@ export class PostService {
 
   createPost(post: any): Observable<Post> {
     return this.http.post<Post>(this.createPostUrl, post, {
+      withCredentials: true
+    });
+  }
+
+  getHistoryPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.historyPostsUrl}`, {
+      withCredentials: true
+    });
+  }
+
+  deletePost(id: number): Observable<Post> {
+    return this.http.post<Post>(`${this.deletePostUrl}/${id}`, {}, {
+      withCredentials: true
+    });
+  }
+
+  updatePost(post: any, id: number): Observable<Post> {
+    return this.http.post<Post>(`${this.updatePostUrl}/${id}`, post, {
       withCredentials: true
     });
   }

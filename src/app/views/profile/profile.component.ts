@@ -29,7 +29,6 @@ export class ProfileComponent {
   doublePassword: string = "";
 
   constructor(private userService: UserService) {
-    console.log(this.user);
   }
 
   onEdit() {
@@ -45,7 +44,6 @@ export class ProfileComponent {
 
     this.userService.updateUser(changes).subscribe(
       (response) => {
-        console.log(response);
         this.userService.setUser(response);
         this.changedInfoState = true;
 

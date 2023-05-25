@@ -13,7 +13,6 @@ export class AuthEntrepreneurGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = this.userService.getUser();
-    console.log(user)
     if (user && this.isEntrepreneur(user)) {
       return true;
     }

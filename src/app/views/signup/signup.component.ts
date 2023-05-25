@@ -67,7 +67,6 @@ export class SignupComponent {
         this.userService.signupEntrepreneur(entrepreneur).pipe(
           catchError((error: any) => {
             this.errorMessage = error.error;
-            console.log(this.errorMessage);
             throw error;
           }))
           .subscribe((response: any) => {
@@ -99,7 +98,6 @@ export class SignupComponent {
           });
       }
     } catch (error) {
-      console.log(error);
     }
 
   }
@@ -114,7 +112,6 @@ export class SignupComponent {
       this.musicGenres.push($event.target.value);
       $event.target.checked = true;
     }
-    console.log(this.musicGenres);
   }
 
   selectRole(event: any) {

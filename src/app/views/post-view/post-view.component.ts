@@ -81,7 +81,6 @@ export class PostViewComponent {
     let postGenres = post.genres;
     let userGenres = this.currentUser?.musicalGenres;
 
-    console.log(this.currentUser)
     if (!userGenres) return false;
 
     postGenres.forEach((genre, i) => {

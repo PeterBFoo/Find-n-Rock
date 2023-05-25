@@ -32,8 +32,6 @@ export class HomeComponent {
   }
 
   onNewSearch(searchData: any) {
-    console.log(searchData)
-
     if (!searchData) {
       this.postService.getAllPosts().subscribe((posts: Post[]) => {
         this.posts = posts;

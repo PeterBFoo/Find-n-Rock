@@ -1,5 +1,5 @@
 export interface SearchData {
-    genre: string;
+    genres: string;
     country: string;
     region: string;
     city: string;

@@ -83,7 +83,7 @@ export class SearcherComponent implements OnInit {
 
   searchPosts(): void {
     let searchData: SearchData = {
-      genre: this.selectedGenre,
+      genres: this.selectedGenre,
       country: this.selectedCountry,
       region: this.selectedRegion,
       city: this.selectedCity

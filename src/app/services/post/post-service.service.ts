@@ -30,7 +30,14 @@ export class PostService {
   }
 
   getPostsByFilters(filters: any): Observable<Post[]> {
-    let url = `${this.apiUrl}?country=${filters.country}&region=${filters.region}&city=${filters.city}&genres=${filters.genre}`;
+    let url = this.apiUrl + '?';
+
+    for (let key in filters) {
+      if (filters[key]) {
+        url += `${key}=${filters[key]}&`;
+      }
+    }
+    url = url.slice(0, -1);
 
     return this.http.get<Post[]>(url, {
       withCredentials: true

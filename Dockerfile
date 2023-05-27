@@ -2,10 +2,10 @@ FROM --platform=linux/amd64 node:alpine as build
 
 WORKDIR /app
 RUN npm i -g @angular/cli
-COPY . /app
 
+COPY . /app
 RUN npm install
-RUN ng build
+# RUN ng build --configuration production
 
 FROM --platform=linux/amd64 nginx:alpine
 

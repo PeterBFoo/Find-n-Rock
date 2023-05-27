@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "dev": "ng serve --configuration development",
+    "deploy": "npm run build && sudo docker build -t peterbfoo/find-n-rock .",
     "start:prod": "ng serve --live-reload=false",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

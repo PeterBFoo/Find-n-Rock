@@ -26,6 +26,8 @@
                         <p class="card-text font-weight-bold mb-0">{{post.subtitle}}</p>
                     </div>
                     <div class="col-auto">
+                        <button *ngIf="post.active" (click)="seeSuscriptions()" class="btn btn-primary mx-3">Manage
+                            suscribers</button>
                         <button *ngIf="post.active" (click)="deletePost()" class="btn btn-danger mx-3">Delete</button>
                         <button *ngIf="post.active" (click)="modifyPost()"
                             class="btn btn-secondary mx-3">Modify</button>

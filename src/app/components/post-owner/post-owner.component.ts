@@ -23,6 +23,10 @@ export class PostOwnerComponent {
     this.router.navigate(["/post", "edit", this.post.id])
   }
 
+  seeSuscriptions() {
+    this.router.navigate(["/post", this.post.id, "suscriptions"])
+  }
+
   deletePost() {
     this.deletePostEvent.emit(this.post.id);
   }

@@ -1,0 +1,42 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+<app-header [user]="currentUser"></app-header>
+<div *ngIf="!loadedData">
+    <app-spinner></app-spinner>
+</div>
+<div *ngIf="loadedData">
+    <br><br><br><br><br><br>
+    <div class="custom-container">
+        <div class="row mx-5">
+            <h4><strong>Suscriptions of post</strong></h4>
+            <br><br>
+            <ng-container *ngIf="suscriptions.length > 0; else noSuscriptions">
+                <div *ngFor="let suscriber of suscriptions">
+                    <app-group-card (unselectCandidateEvent)="removeCandidate($event)"
+                        (selectCandidateEvent)="addSelectedCandidate($event)" [suscriber]="suscriber"></app-group-card>
+                </div>
+            </ng-container>
+            <ng-template #noSuscriptions>
+                <h4 class="center fw-bold">You don't have any suscribers to your post yet</h4>
+            </ng-template>
+        </div>
+        <div *ngIf="selectedCandidates.length > 0"
+            class="footer animate__animated animate__slideInUp bg-dark text-white fixed-bottom text-center p-3">
+            <div class="row">
+                <div class="col-lg-2">
+                    {{selectedCandidates.length}} candidate/s selected
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                        Choose candidates
+                    </button>
+                </div>
+            </div>
+        </div>
+        <app-confirm-modal (confirmEvent)="chooseCandidates()" [buttonText]="'Choose candidates'"
+            [bodyText]="'All the chosen candidates will be notified via email and therefore, this post archived. Are you sure?'"></app-confirm-modal>
+
+    </div>
+</div>

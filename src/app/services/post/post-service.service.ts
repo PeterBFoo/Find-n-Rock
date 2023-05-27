@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Post } from '../interfaces/PostInterface';
 import { environment } from '../../../environments/environment.prod';
+import { SearchData } from 'src/app/components/searcher/interfaces/SearchEventInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class PostService {
   private historyPostsUrl = this.baseUrl + '/auth/history/posts';
   private deletePostUrl = this.baseUrl + '/auth/posts/delete';
   private updatePostUrl = this.baseUrl + '/auth/posts/edit';
+  private chooseCandidatesUrl = this.baseUrl + '/auth/post/choose';
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +31,7 @@ export class PostService {
     });
   }
 
-  getPostsByFilters(filters: any): Observable<Post[]> {
+  getPostsByFilters(filters: SearchData | any): Observable<Post[]> {
     let url = this.apiUrl + '?';
 
     for (let key in filters) {
@@ -88,6 +90,12 @@ export class PostService {
 
   unsuscribeToPost(id: number): Observable<Post> {
     return this.http.post<any>(`${this.unsuscribeToPostUrl}/${id}`, {}, {
+      withCredentials: true
+    });
+  }
+
+  chooseCandidates(id: number, candidates: string[]): Observable<Post> {
+    return this.http.post<any>(`${this.chooseCandidatesUrl}/${id}`, { candidates: candidates }, {
       withCredentials: true
     });
   }

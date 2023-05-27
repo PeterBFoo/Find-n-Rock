@@ -8,6 +8,8 @@ import { City } from 'src/app/shared/countries/interfaces/CitiesInterface';
 import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
 import { Region } from 'src/app/shared/countries/interfaces/RegionsInterface';
 import { PostService } from 'src/app/services/post/post-service.service';
+import { Post } from 'src/app/services/interfaces/PostInterface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -35,7 +37,7 @@ export class CreatePostComponent implements OnInit {
   region = '';
   city = '';
 
-  constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService) { }
+  constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getUser()
@@ -124,8 +126,8 @@ export class CreatePostComponent implements OnInit {
         genres: this.selectedGenres
       }
 
-      this.postService.createPost(post).subscribe((response: any) => {
-        console.log(response);
+      this.postService.createPost(post).subscribe((response: Post) => {
+        this.router.navigate(['/post', response.id]);
       });
     }
   }

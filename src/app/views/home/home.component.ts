@@ -31,7 +31,7 @@ export class HomeComponent {
     });
   }
 
-  onNewSearch(searchData: any) {
+  onNewSearch(searchData: SearchData) {
     if (!searchData) {
       this.postService.getAllPosts().subscribe((posts: Post[]) => {
         this.posts = posts;

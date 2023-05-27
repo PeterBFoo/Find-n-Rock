@@ -27,16 +27,20 @@
                     </div>
                 </ng-container>
             </div>
-
             <ng-template #noPostsFound>
-                <h4 class="center fw-bold">You haven't created any posts</h4>
-                <br><br><br><br><br><br>
-                <img class="center small-image" src="{{ postsNotFoundImage }}">
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <h4 class="center fw-bold">You don't have any active post</h4>
+                    <br>
+                    <img class="center small-image" src="{{ postsNotFoundImage }}">
+                </div>
+
             </ng-template>
             <ng-template #noOldPostsFound>
-                <h4 class="center fw-bold">You don't have any old posts</h4>
-                <br><br><br><br><br><br>
-                <img class="center small-image" src="{{ postsNotFoundImage }}">
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <h4 class="center fw-bold">You don't have any old posts</h4>
+                    <br>
+                    <img class="center small-image" src="{{ postsNotFoundImage }}">
+                </div>
             </ng-template>
         </div>
     </div>

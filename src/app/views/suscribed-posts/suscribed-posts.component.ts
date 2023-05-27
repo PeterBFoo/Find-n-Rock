@@ -15,7 +15,7 @@ export class SuscribedPostsComponent {
   currentUser!: User;
   loadedData: boolean = false;
 
-  postsNotFoundImage: string = 'assets/images/posts_not_found.jpeg';
+  postsNotFoundImage: string = 'assets/images/no_posts.png';
 
   constructor(private postService: PostService, private userService: UserService, private router: Router) {
   }

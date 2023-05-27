@@ -6,7 +6,7 @@
     <br><br><br><br><br><br>
     <div class="custom-container">
         <div class="row mx-5">
-            <h4><strong>Suscribed posts</strong></h4>
+            <h4 *ngIf="posts.length > 0"><strong>Suscribed posts</strong></h4>
             <br><br>
             <ng-container *ngIf="posts.length > 0; else noPostsFound">
                 <div *ngFor="let post of posts">
@@ -15,7 +15,7 @@
             </ng-container>
             <ng-template #noPostsFound>
                 <h4 class="center fw-bold">You haven't suscribed to any posts</h4>
-                <br><br><br><br><br><br>
+                <br><br><br>
                 <img class="center small-image" src="{{ postsNotFoundImage }}">
             </ng-template>
         </div>

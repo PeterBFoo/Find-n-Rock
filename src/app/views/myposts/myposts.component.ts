@@ -17,7 +17,7 @@ export class MyPostsComponent {
   loadedData: boolean = false;
   mode: string = 'created';
 
-  postsNotFoundImage: string = 'assets/images/posts_not_found.jpeg';
+  postsNotFoundImage: string = 'assets/images/no_posts.png';
 
   constructor(private postService: PostService, private userService: UserService, private router: Router) {
   }

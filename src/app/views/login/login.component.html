@@ -1,37 +1,45 @@
-<div class="container">
-    <h2 class="login-title">Log in</h2>
-
-    <form class="login-form">
-      <div>
-        <label for="name">Username</label>
-        <input
-               [(ngModel)]="username"
-               type="text"
-               name="username"
-               required
-               />
+<section class="custom-container px-5">
+  <div class="px-4 py-5 text-center text-lg-start">
+    <div class="row gx-lg-5 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <h1 class="my-5 display-3 fw-bold ls-tight">
+          Access to the music world in <br />
+          <span class="text-primary">Find 'n Rock</span>
+        </h1>
+        <p style="color: hsl(217, 10%, 50.8%)">
+          Join to thousands of artists, bands and music lovers in the best music working portal, and if you are an
+          entrepreneur, you can find the best talent for your business.
+        </p>
       </div>
 
-      <div>
-        <label for="password">Password</label>
-        <input
-               [(ngModel)]="password"
-               type="password"
-               name="password"
-               required
-               />
-      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card">
+          <div class="card-body py-5 px-md-5">
+            <form>
+              <div class="form-outline mb-4">
+                <input type="text" [ngClass]="{ 'is-invalid' : invalidInput }" [(ngModel)]="username" id="username"
+                  name="username" class="form-control" placeholder="Username" />
+              </div>
 
-      <div class="login-form__error" *ngIf="errorMessage != ''">
-        {{ errorMessage }}
-      </div>
+              <div class="form-outline mb-4">
+                <input [ngClass]="{ 'is-invalid' : invalidInput }" [(ngModel)]="password" name="password"
+                  type="password" id="password" placeholder="Password" class="form-control" />
+              </div>
 
-      <button class="btn btn--form" type="submit" (click)="onLogin()">
-        Log in
-      </button>
+              <span class="text-danger">{{errorMessage}}</span>
 
-      <div>
-        <a routerLink="/signup">Sign up</a>
+              <div class="mt-5">
+                <button (click)="onLogin()" type="submit" class="btn btn-primary btn-block">
+                  Log in
+                </button>
+                <button routerLink="/signup" type="submit" class="btn btn-secondary btn-block mx-3">
+                  Sign up
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </form>
-</div>
+    </div>
+  </div>
+</section>

@@ -89,4 +89,10 @@ export class UserService {
       withCredentials: true
     });
   }
+
+  getUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(`${this.profile}/${username}`, {
+      withCredentials: true
+    });
+  }
 }

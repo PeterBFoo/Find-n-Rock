@@ -19,6 +19,11 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SuscriptionComponent } from './components/suscription/suscription.component';
 import { PostOwnerComponent } from './components/post-owner/post-owner.component';
 import { EditPostComponent } from './views/edit-post/edit-post.component';
+import { SuscriptionsViewComponent } from './views/suscriptions-view/suscriptions-view.component';
+import { GroupCardComponent } from './components/group-card/group-card.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { PublicProfileComponent } from './views/public-profile/public-profile.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,11 @@ import { EditPostComponent } from './views/edit-post/edit-post.component';
     SuscriptionComponent,
     PostOwnerComponent,
     EditPostComponent,
+    SuscriptionsViewComponent,
+    GroupCardComponent,
+    FooterComponent,
+    ConfirmModalComponent,
+    PublicProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,9 @@
                         {{genre.name}}
                     </span>
                 </p>
+                <div class="col-auto" routerLink="/user/profile/{{suscriber.username}}">
+                    <button class="btn btn-primary">See profile</button>
+                </div>
                 <div class="row mt-3">
                     <div class="col">
                         <hr>
@@ -25,13 +28,14 @@
                     <div class="col">
                         <p class="card-text font-weight-bold mb-0">{{suscriber.description}}</p>
                     </div>
+
                     <div class="col-auto">
                         <div class="form-check">
-                            <input (click)="onSelectCandidate()" class="form-check-input" type="checkbox" value=""
-                                id="suscriberSelector">
                             <label class="form-check-label" for="suscriberSelector">
                                 Select candidate
                             </label>
+                            <input (click)="onSelectCandidate()" class="form-check-input" type="checkbox" value=""
+                                id="suscriberSelector">
                         </div>
                     </div>
                 </div>

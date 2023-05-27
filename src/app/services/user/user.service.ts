@@ -13,11 +13,12 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class UserService {
 
-  private userInRequest!: User;
+  private userInRequest!: User | null;
   private baseUrl = environment.apiUrl;
 
   private profile = this.baseUrl + '/auth/profile';
   private loginUrl = this.baseUrl + '/login';
+  private logoutUrl = this.baseUrl + '/logout';
   private signupUrl = this.baseUrl + '/register';
   private updateUserUrl = this.baseUrl + '/auth/profile/edit';
 
@@ -45,16 +46,34 @@ export class UserService {
   }
 
   setToken(token: string) {
+    localStorage.setItem('auth-token', token);
     this.cookieService.set('auth-token', token);
   }
 
   getToken() {
-    return this.cookieService.get('auth-token');
+    let token = this.cookieService.get('auth-token');
+    token = token ? token : localStorage.getItem('auth-token')!;
+
+    return token;
   }
 
   logout() {
-    this.cookieService.delete('auth-token');
+    this.http.post<any>(this.logoutUrl, {}, {
+      withCredentials: true
+    }).subscribe(() => {
+      this.removeToken();
+      this.removeUser();
+    });
+  }
+
+  private removeUser() {
+    this.userInRequest = null;
     localStorage.removeItem('user');
+  }
+
+  private removeToken() {
+    this.cookieService.delete('auth-token');
+    localStorage.removeItem('auth-token');
   }
 
   signupMusicGroup(user: MusicGroup): Observable<any> {

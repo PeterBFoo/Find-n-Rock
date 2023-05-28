@@ -22,6 +22,7 @@ export class PostService {
   private deletePostUrl = this.baseUrl + '/auth/posts/delete';
   private updatePostUrl = this.baseUrl + '/auth/posts/edit';
   private chooseCandidatesUrl = this.baseUrl + '/auth/post/choose';
+  private chosenPostsUrl = this.baseUrl + '/auth/posts/suscriptions/chosen';
 
   constructor(private http: HttpClient) { }
 
@@ -54,6 +55,12 @@ export class PostService {
 
   getSuscribedPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.suscribedPostsUrl}`, {
+      withCredentials: true
+    });
+  }
+
+  getChosenPostsOfUser(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.chosenPostsUrl}`, {
       withCredentials: true
     });
   }

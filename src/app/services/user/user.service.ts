@@ -61,19 +61,13 @@ export class UserService {
     this.http.post<any>(this.logoutUrl, {}, {
       withCredentials: true
     }).subscribe(() => {
-      this.removeToken();
-      this.removeUser();
+      this.removeSession()
     });
   }
 
-  private removeUser() {
+  private removeSession() {
     this.userInRequest = null;
-    localStorage.removeItem('user');
-  }
-
-  private removeToken() {
-    this.cookieService.delete('auth-token');
-    localStorage.removeItem('auth-token');
+    localStorage.clear();
   }
 
   signupMusicGroup(user: MusicGroup): Observable<any> {

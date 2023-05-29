@@ -1,113 +1,123 @@
 <div *ngIf="!dataloaded">
     <app-spinner></app-spinner>
 </div>
-<div *ngIf="dataloaded">
-    <div class="form_wrapper" *ngIf="dataloaded">
-        <div class="form_container">
-            <div class="title_container">
-                <h2>Sign up</h2>
-            </div>
-            <div class="row clearfix">
-                <div class="">
-                    <form>
-                        <div class="input_field select_option">
-                            <h3>Are you an artist or an entrepreneur?</h3>
-                            <select (change)="selectRole($event)">
-                                <option>Artist / Music group</option>
-                                <option>Entrepreneur</option>
-                            </select>
-                            <div class="select_arrow"></div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                                    <input type="text" name="username" placeholder="User name" [(ngModel)]="username"
-                                        required />
-                                </div>
-                            </div>
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                                    <input type="password" name="password" placeholder="Password" [(ngModel)]="password"
-                                        required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                                <input type="text" name="address" [(ngModel)]="address" placeholder="Address"
-                                    required />
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                                    <input type="email" name="email" placeholder="Email" [(ngModel)]="email" required />
-                                </div>
-                            </div>
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                                    <input type="text" name="name" placeholder="Your full name" [(ngModel)]="name"
-                                        required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                                <input type="text" name="image" placeholder="Paste any link to an image"
-                                    [(ngModel)]="image" required />
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col_half">
-                                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                                    <input type="text" name="phoneNumber" placeholder="Phone number"
-                                        [(ngModel)]="phoneNumber" required />
-                                </div>
-                            </div>
-                            <div class="col_half">
-                                <div class="input_field select_option">
-                                    <select (change)="onSelectCountry($event)">
-                                        <option *ngFor="let country of availableCountries" [value]="country.name">
-                                            {{country.name}}</option>
+<section *ngIf="dataloaded" class="h-100 form-with-background">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="card-body p-md-5 text-black">
+                            <h3 class="text-uppercase">Sign up</h3>
+                            <hr>
+                            <div class="form-outline mb-4">
+                                <h5>Are you an artist or an entrepreneur?</h5>
+                                <div class="mt-3">
+                                    <select (change)="selectRole($event)" class="form-select">
+                                        <option>Artist / Music group</option>
+                                        <option>Entrepreneur</option>
                                     </select>
-                                    <div class="select_arrow"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="groupOnly" *ngIf="musicGroup">
-                            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                                <input type="number" name="integrants" placeholder="Integrants of the band"
-                                    [(ngModel)]="integrants" />
-                            </div>
-                            <div *ngIf="availableMusicGenres.length > 0">
-                                <div class="input_field select_option">
-                                    <h4>Choose your favorite genres</h4>
-                                    <select multiple (click)="selectGenre($event)">
-                                        <option *ngFor="let genre of availableMusicGenres" value="{{genre.name}}">
-                                            {{genre.name}}</option>
-                                    </select>
-                                    <div id="genresSelected" *ngIf="musicGenres.length > 0">
-                                        <p>Selected genres</p>
-                                        <ul>
-                                            <li *ngFor="let selectedGenre of musicGenres">
-                                                {{selectedGenre}}
-                                            </li>
-                                        </ul>
+                            <form id="signupForm" class="mt-4">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" id="username" name="username" placeholder="User name"
+                                                [(ngModel)]="username" required class="form-control " />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input id="password" type="password" name="password" placeholder="Password"
+                                                [(ngModel)]="password" required class="form-control " />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <input id="name" type="text" name="name" placeholder="Your full name"
+                                            [(ngModel)]="name" required class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <input id="email" type="email" name="email" placeholder="E-mail address"
+                                            [(ngModel)]="email" required class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="address" name="address" [(ngModel)]="address"
+                                        placeholder="Address" required class="form-control " />
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="image" name="image" placeholder="Paste any link to an image"
+                                        [(ngModel)]="image" required class="form-control " />
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" id="phoneNumber" name="phoneNumber"
+                                                placeholder="Phone number" [(ngModel)]="phoneNumber" required
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <ng-select id="country" [items]="availableCountries" bindLabel="name"
+                                                bindValue="name" [(ngModel)]="country" name="country" required
+                                                placeholder="Select your country">
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <textarea type="text" id="description" name="description"
+                                        placeholder="Add a little description of yourself" [(ngModel)]="description"
+                                        class="form-control" rows="4"></textarea>
+                                </div>
+
+                                <div *ngIf="musicGroup">
+                                    <div class="form-outline mb-4">
+                                        <input id="integrants" type="number" name="integrants"
+                                            placeholder="Integrants of the band" [(ngModel)]="integrants"
+                                            class="form-control" />
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <h6>Choose up to five genres that suit you the most!</h6>
+
+                                        <ng-select [multiple]="true" [(ngModel)]="musicGenres" id="genreSelector"
+                                            name="musicGenres" placeholder="Search genres">
+                                            <ng-option *ngFor="let genre of availableMusicGenres"
+                                                [value]="genre.name">{{genre.name}}
+                                            </ng-option>
+                                        </ng-select>
+                                    </div>
+
+                                </div>
+                                <div class="d-flex justify-content-center pt-3">
+                                    <p class="text-danger">{{errorMessage}}</p>
+                                </div>
+                                <div class="d-flex justify-content-center pt-3">
+                                    <button type="button" (click)="resetForm()" class="btn btn-light mx-2">Reset
+                                        all</button>
+                                    <button type="button" class="btn btn-primary mx-3" (click)="register()">Submit
+                                        form</button>
+                                </div>
+                                <div>
+                                    <p class="text-center mt-5 mb-3 text-muted">Already have an account? <a
+                                            routerLink="/login">Login</a></p>
+                                </div>
+                            </form>
                         </div>
-                        <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                            <input type="text" name="description" placeholder="Add a little description of yourself"
-                                [(ngModel)]="description" />
-                        </div>
-                        <div class="error title_container">
-                            <h2>{{errorMessage}}</h2>
-                        </div>
-                        <input class="button" type="submit" value="Register" (click)="register()" />
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

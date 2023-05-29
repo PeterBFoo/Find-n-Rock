@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MusicGenre } from 'src/app/services/interfaces/MusicGenreInterface';
 import { MusicGenreService } from 'src/app/services/musicGenre/music-genre.service';
@@ -13,7 +13,7 @@ import { catchError } from 'rxjs';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   entrepreneur: boolean = false;
   musicGroup: boolean = true;
 
@@ -24,8 +24,8 @@ export class SignupComponent {
   email: string = "";
   address: string = "";
   phoneNumber: string = "";
-  country: string = "";
-  integrants: number = 0;
+  country!: string;
+  integrants!: number;
   image: string = "";
   musicGenres: string[] = [];
   dataloaded: boolean = false;
@@ -48,61 +48,18 @@ export class SignupComponent {
   }
 
   register() {
-    try {
-      this.validateFields();
-
+    if (this.validateFields()) {
       if (this.entrepreneur) {
-        let entrepreneur = {
-          username: this.username,
-          password: this.password,
-          name: this.name,
-          email: this.email,
-          address: this.address,
-          phone: this.phoneNumber,
-          country: this.country,
-          image: this.image,
-          description: this.description,
-          role: "entrepreneur"
-        }
-        this.userService.signupEntrepreneur(entrepreneur).pipe(
-          catchError((error: any) => {
-            this.errorMessage = error.error;
-            throw error;
-          }))
-          .subscribe((response: any) => {
-            this.router.navigate(['/login']);
-          });
+        this.registerEntrepreneur();
       } else {
-        let musicGroup = {
-          username: this.username,
-          password: this.password,
-          name: this.name,
-          email: this.email,
-          address: this.address,
-          phone: this.phoneNumber,
-          country: this.country,
-          image: this.image,
-          description: this.description,
-          integrants: this.integrants,
-          musicalGenres: this.musicGenres,
-          role: "group"
-        }
-
-        this.userService.signupMusicGroup(musicGroup).pipe(
-          catchError((error: any) => {
-            this.errorMessage = error.error;
-            throw error;
-          }))
-          .subscribe((response: any) => {
-            this.router.navigate(['/login']);
-          });
+        this.registerMusicGroup();
       }
-    } catch (error) {
     }
-
   }
 
   selectGenre($event: any) {
+    if (this.musicGenres.length == 5) return;
+
     if (this.musicGenres.includes($event.target.value)) {
       let i = this.musicGenres.indexOf($event.target.value);
       this.musicGenres.splice(i, 1);
@@ -124,10 +81,6 @@ export class SignupComponent {
     }
   }
 
-  onSelectCountry(event: any) {
-    this.country = event.target.value;
-  }
-
   validateFields() {
     let mandatoryFields = ["username", "password", "name", "email", "address", "phoneNumber", "country", "image", "description"];
     let mandatoryFieldsGroup = ["integrants", "musicGenres"];
@@ -136,25 +89,94 @@ export class SignupComponent {
       mandatoryFields = mandatoryFields.concat(mandatoryFieldsGroup);
     }
 
+    let component: any = this;
+    let isValid = true;
+
     mandatoryFields.forEach((field: string) => {
-      let component: any = this;
-      if (component[field] == "") {
-        this.errorMessage = "Please fill all the fields, " + field + " is missing";
-        throw this.errorMessage;
+      if (component[field] == "" || !component[field]) {
+        isValid = false;
+        this.errorMessage = "Please fill all the fields";
+        this.addErrorClass(field);
       }
     });
 
     let emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(this.email)) {
       this.errorMessage = "Please enter a valid email";
-      throw this.errorMessage;
+      isValid = false;
     }
 
     let imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
 
     if (!imageRegex.test(this.image)) {
       this.errorMessage = "Please enter a valid image url";
-      throw this.errorMessage;
+      isValid = false;
     }
+
+    return isValid;
+  }
+
+  resetForm() {
+    let form = document.getElementById("signupForm") as HTMLFormElement;
+    form.reset();
+    this.clearGenres();
+  }
+
+  clearGenres() {
+    this.musicGenres = [];
+  }
+
+  private addErrorClass(field: string) {
+    let element: any = document.getElementById(field);
+    element.classList.add("is-invalid");
+  }
+
+  private registerEntrepreneur() {
+    let entrepreneur = {
+      username: this.username,
+      password: this.password,
+      name: this.name,
+      email: this.email,
+      address: this.address,
+      phone: this.phoneNumber,
+      country: this.country,
+      image: this.image,
+      description: this.description,
+      role: "entrepreneur"
+    }
+    this.userService.signupEntrepreneur(entrepreneur).pipe(
+      catchError((error: any) => {
+        this.errorMessage = error.error;
+        throw error;
+      }))
+      .subscribe((response: any) => {
+        this.router.navigate(['/login']);
+      });
+  }
+
+  private registerMusicGroup() {
+    let musicGroup = {
+      username: this.username,
+      password: this.password,
+      name: this.name,
+      email: this.email,
+      address: this.address,
+      phone: this.phoneNumber,
+      country: this.country,
+      image: this.image,
+      description: this.description,
+      integrants: this.integrants,
+      musicalGenres: this.musicGenres,
+      role: "group"
+    }
+
+    this.userService.signupMusicGroup(musicGroup).pipe(
+      catchError((error: any) => {
+        this.errorMessage = error.error;
+        throw error;
+      }))
+      .subscribe((response: any) => {
+        this.router.navigate(['/login']);
+      });
   }
 }

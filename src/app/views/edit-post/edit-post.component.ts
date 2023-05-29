@@ -79,7 +79,7 @@ export class EditPostComponent {
   }
 
   onSelectCountry(): void {
-    if (this.countryData === "") {
+    if (this.countryData === "" || this.countryData === null) {
       this.removeSelectedCityAndRegion();
       return;
     }
@@ -96,7 +96,7 @@ export class EditPostComponent {
   }
 
   onSelectRegion(): void {
-    if (this.regionData === "") {
+    if (this.regionData === "" || this.regionData === null) {
       this.removeSelectedCity();
       return;
     }

@@ -50,7 +50,7 @@ export class SearcherComponent implements OnInit {
   }
 
   onSelectCountry(): void {
-    if (this.countryData === "") {
+    if (this.countryData === "" || this.countryData === null) {
       this.selectedCountry = "";
       this.removeSelectedCityAndRegion();
       return;
@@ -68,6 +68,12 @@ export class SearcherComponent implements OnInit {
   }
 
   onSelectRegion(): void {
+    if (this.regionData === null) {
+      this.selectedRegion = "";
+      this.removeSelectedCity();
+      return;
+    }
+
     let regionInfo = this.regionData.split(',');
     let countryCode = regionInfo[0];
     let regionCode = regionInfo[1];

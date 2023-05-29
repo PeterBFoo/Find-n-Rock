@@ -60,7 +60,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSelectCountry(): void {
-    if (this.countryData === "") {
+    if (this.countryData === "" || this.countryData === null) {
       this.removeSelectedCityAndRegion();
       return;
     }
@@ -77,7 +77,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSelectRegion(): void {
-    if (this.regionData === "") {
+    if (this.regionData === "" || this.regionData === null) {
       this.removeSelectedCity();
       return;
     }
@@ -133,6 +133,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   private isValidForm() {
+    console.log(this);
     let isFormValid = true;
     let mandatoryFields: any = {
       title: this.title,

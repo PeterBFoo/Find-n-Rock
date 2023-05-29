@@ -28,54 +28,47 @@
                                         id="image" placeholder="Post image URL">
 
                                     <div class="locationInfo">
-                                        <label for="country" class="form-label"></label>
-                                        <select [(ngModel)]="countryData" name="countryData"
-                                            (change)="onSelectCountry()" class=" form-select" id="country">
-                                            <option value="">Choose a country</option>
-                                            <option [value]="country.code + ',' + country.name"
-                                                *ngFor="let country of countries">
-                                                {{country.name}}</option>
-                                        </select>
-                                        <div *ngIf="regionsLoaded">
-                                            <label for="region" class="form-label"></label>
-                                            <select [(ngModel)]="regionData" name="regionData"
-                                                (change)="onSelectRegion()" class="form-select" id="region">
-                                                <option value="">Choose a region</option>
-                                                <option
-                                                    [value]="region.countryCode + ',' + region.isoCode + ',' + region.name"
-                                                    *ngFor="let region of regions">
-                                                    {{region.name}}</option>
-                                            </select>
+                                        <div class="mt-4">
+                                            <ng-select [(ngModel)]="countryData" name="countryData"
+                                                (change)="onSelectCountry()" id="country">
+                                                <ng-option value="" disabled selected>Choose a country</ng-option>
+                                                <ng-option *ngFor="let country of countries"
+                                                    [value]="country.code + ',' + country.name">
+                                                    {{ country.name }}
+                                                </ng-option>
+                                            </ng-select>
                                         </div>
-                                        <div *ngIf="citiesLoaded">
-                                            <label for="region" class="form-label"></label>
-                                            <select [(ngModel)]="city" name="city" class="form-select" id="city">
-                                                <option value="">Choose a city</option>
-                                                <option value="{{city.name}}" *ngFor="let city of cities">
-                                                    {{city.name}}</option>
-                                            </select>
+                                        <div *ngIf="regionsLoaded" class="mt-4">
+                                            <ng-select [(ngModel)]="regionData" name="regionData"
+                                                (change)="onSelectRegion()" id="region">
+                                                <ng-option value="" disabled selected>Choose a region</ng-option>
+                                                <ng-option *ngFor="let region of regions"
+                                                    [value]="region.countryCode + ',' + region.isoCode + ',' + region.name">
+                                                    {{ region.name }}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                        <div *ngIf="citiesLoaded" class="mt-4">
+                                            <ng-select [(ngModel)]="city" name="city" id="city">
+                                                <ng-option value="" disabled selected>Choose a city</ng-option>
+                                                <ng-option *ngFor="let city of cities" [value]="city.name">{{ city.name
+                                                    }}</ng-option>
+                                            </ng-select>
                                         </div>
                                     </div>
                                     <div *ngIf="availableMusicGenres.length > 0" class="d-flex">
-                                        <div class="col-md-2 mt-3 d-flex align-items-center justify-content-center">
-                                            <p class="text-center">Choose some genres that match with your post</p>
+                                        <div class="col-md-2 mt-5 d-flex align-items-center justify-content-center">
+                                            <p class="text-center text-muted">Choose some genres that match with your
+                                                post</p>
                                         </div>
-                                        <div class="input_field select_option mt-3 col-md-5">
-                                            <select multiple (click)="selectGenre($event)" class="form-select"
-                                                id="selectedGenres">
-                                                <option *ngFor="let genre of availableMusicGenres"
-                                                    value="{{genre.name}}" class="text-center">
-                                                    {{genre.name}}</option>
-                                            </select>
-
+                                        <div class="mt-5 col-md-5">
+                                            <ng-select [(ngModel)]="selectedGenres" id="genreSelector" [multiple]="true"
+                                                name="selectedGenres" placeholder="Search genres">
+                                                <ng-option *ngFor="let genre of availableMusicGenres"
+                                                    [value]="genre.name">{{genre.name}}
+                                                </ng-option>
+                                            </ng-select>
                                         </div>
-                                    </div>
-                                    <div id="genresSelected" *ngIf="selectedGenres.length > 0" class="mt-3">
-                                        <p>Selected genres</p>
-                                        <ul class="list-group">
-                                            <li *ngFor="let selectedGenre of selectedGenres" class="list-group-item">
-                                                {{selectedGenre}}</li>
-                                        </ul>
                                     </div>
                                 </div>
                             </form>

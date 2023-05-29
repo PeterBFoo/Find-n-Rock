@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthEntrepreneurGuard implements CanActivate {
+export class AuthEntrepreneurGuard  {
   constructor(private userService: UserService) { }
 
   canActivate(

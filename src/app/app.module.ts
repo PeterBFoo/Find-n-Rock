@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-
+import { AuthInterceptor } from './shared/interceptors/auth-interceptor.interceptor';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
@@ -27,6 +27,7 @@ import { GroupCardComponent } from './components/group-card/group-card.component
 import { FooterComponent } from './components/footer/footer.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { PublicProfileComponent } from './views/public-profile/public-profile.component';
+import { FooterSmallComponent } from './components/footer-small/footer-small.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { PublicProfileComponent } from './views/public-profile/public-profile.co
     FooterComponent,
     ConfirmModalComponent,
     PublicProfileComponent,
+    FooterSmallComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,10 @@ import { PublicProfileComponent } from './views/public-profile/public-profile.co
     FormsModule,
     NgSelectModule
   ],
-  providers: [],
+  providers: [
+    // Registrar el interceptor como un proveedor con la clave HTTP_INTERCEPTORS
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 

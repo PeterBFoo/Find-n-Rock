@@ -47,22 +47,16 @@ export class UserService {
 
   setToken(token: string) {
     localStorage.setItem('auth-token', token);
-    this.cookieService.set('auth-token', token);
   }
 
   getToken() {
-    let token = this.cookieService.get('auth-token');
-    token = token ? token : localStorage.getItem('auth-token')!;
+    let token = localStorage.getItem('auth-token')!;
 
     return token;
   }
 
   logout() {
-    this.http.post<any>(this.logoutUrl, {}, {
-      withCredentials: true
-    }).subscribe(() => {
-      this.removeSession()
-    });
+    this.removeSession();
   }
 
   private removeSession() {

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/services/interfaces/UserInterface';
 import { UserService } from 'src/app/services/user/user.service';
+import { CountriesService } from 'src/app/shared/countries/countries.service';
+import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +14,7 @@ export class ProfileComponent {
 
   changedInfoState = false;
   changedPasswordState = false;
+  passwordDisabled = false;
 
   passwordErrorMessage = "";
   infoErrorMessage = "";
@@ -24,15 +27,42 @@ export class ProfileComponent {
   address: string = this.user.address;
   country: string = this.user.country;
   image: string = this.user.image;
-  integrants: number = this.user.integrants || 0;
+  integrants: number | null = this.user.integrants;
   description: string = this.user.description;
   doublePassword: string = "";
 
-  constructor(private userService: UserService) {
+  availableCountries: Country[] = []
+
+  constructor(private userService: UserService, private countryService: CountriesService) {
+    this.countryService.getAllCountries().subscribe(
+      (response) => {
+        this.availableCountries = response.data;
+      });
   }
 
   onEdit() {
-    let fields = this.getModifiedFields() as any;
+    let fields = this.getModifiedFields() as string[];
+    let changes = this.getChanges();
+
+    if (this.areValidFields(changes) && fields.length > 0) {
+      this.userService.updateUser(changes).subscribe(
+        (response) => {
+          if (fields.includes("image")) window.location.reload();
+
+          this.userService.setUser(response);
+          this.changedInfoState = true;
+
+          setInterval(() => {
+            this.changedInfoState = false;
+          }, 5000);
+        });
+    } else {
+      this.infoErrorMessage = "No changes were made";
+    }
+  }
+
+  private getChanges(_fields?: any) {
+    let fields = _fields || this.getModifiedFields();
     let changes = {} as any;
 
     if (fields.length > 0) {
@@ -42,19 +72,30 @@ export class ProfileComponent {
       }
     }
 
-    this.userService.updateUser(changes).subscribe(
-      (response) => {
-        this.userService.setUser(response);
-        this.changedInfoState = true;
+    return changes;
+  }
 
-        setInterval(() => {
-          this.changedInfoState = false;
-        }, 5000);
-      });
+  shouldBeDisabled() {
+    return this.getModifiedFields().length <= 0
+      || !this.areValidFields(this.getChanges())
+      || !this.isValidEmail()
+      || !this.isValidImage();
+  }
+
+  private areValidFields(data: any) {
+    let isValid = true;
+    Object.getOwnPropertyNames(data).forEach(field => {
+      if (data[field] == "" || data[field] == null || data[field] == undefined) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
   }
 
   onChangePassword() {
     if (this.isValidPassword(this.password)) {
+      this.passwordDisabled = true;
       this.userService.updateUser({
         password: this.password
       }).subscribe(
@@ -64,24 +105,37 @@ export class ProfileComponent {
 
           setInterval(() => {
             this.changedPasswordState = false;
+            this.passwordDisabled = false;
           }, 5000);
         });
     }
   }
 
-  isValidPassword(password: string) {
+  private isValidPassword(password: string) {
     let isValid = true;
 
     if (password.length < 8) {
       this.passwordErrorMessage = "Password must be at least 8 characters long";
+      this.changedPasswordState = false;
       isValid = false;
     }
     else if (password != this.doublePassword) {
       this.passwordErrorMessage = "Passwords don't match";
+      this.changedPasswordState = false;
       isValid = false;
     }
 
+    if (isValid) this.resetPasswordErrorMessage();
+
     return isValid;
+  }
+
+  private resetPasswordErrorMessage() {
+    this.passwordErrorMessage = "";
+  }
+
+  private resetErrorMessage() {
+    this.infoErrorMessage = "";
   }
 
   isValidEmail() {
@@ -96,44 +150,34 @@ export class ProfileComponent {
       isValid = false;
     }
 
+    if (isValid) this.resetErrorMessage();
+    return isValid;
+  }
+
+  isValidImage() {
+    let isValid = true;
+
+    if (!this.image.includes("http") || !this.image.includes("https") || !this.image.includes(".") || !this.image.includes("/") || !this.image.includes(":")) {
+      this.infoErrorMessage = "Image must be a valid URL";
+      isValid = false;
+    }
+
+    if (isValid) this.resetErrorMessage();
     return isValid;
   }
 
 
-  private getModifiedFields() {
-    let fields = [];
+  getModifiedFields() {
+    let modifiedFields = [];
+    let modifiableFields = ["username", "email", "name", "phone", "address", "country", "image", "integrants", "description"];
 
-    if (this.username != this.user.username) {
-      fields.push("username");
-    }
-    if (this.password != this.user.password) {
-      fields.push("password");
-    }
-    if (this.email != this.user.email) {
-      fields.push("email");
-    }
-    if (this.name != this.user.name) {
-      fields.push("name");
-    }
-    if (this.phone != this.user.phone) {
-      fields.push("phone");
-    }
-    if (this.address != this.user.address) {
-      fields.push("address");
-    }
-    if (this.country != this.user.country) {
-      fields.push("country");
-    }
-    if (this.image != this.user.image) {
-      fields.push("image");
-    }
-    if (this.integrants != this.user.integrants) {
-      fields.push("integrants");
-    }
-    if (this.description != this.user.description) {
-      fields.push("description");
+    let __this = this as any;
+    for (let field of modifiableFields) {
+      if (__this[field] != __this.user[field]) {
+        modifiedFields.push(field);
+      }
     }
 
-    return fields;
+    return modifiedFields;
   }
 }

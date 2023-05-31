@@ -14,6 +14,7 @@ import { AuthMusicGroupGuard } from './shared/guards/auth-music-group.guard';
 import { EditPostComponent } from './views/edit-post/edit-post.component';
 import { SuscriptionsViewComponent } from './views/suscriptions-view/suscriptions-view.component';
 import { PublicProfileComponent } from './views/public-profile/public-profile.component';
+import { LandingPageComponent } from './views/landing-page/landing-page.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'post/edit/:id', component: EditPostComponent, canActivate: [AuthGuard, AuthEntrepreneurGuard] },
   { path: 'post/:id/suscriptions', component: SuscriptionsViewComponent, canActivate: [AuthGuard, AuthEntrepreneurGuard] },
   { path: 'user/profile/:username', component: PublicProfileComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: LandingPageComponent },
+  { path: '**', redirectTo: 'home' }
 
 ];
 

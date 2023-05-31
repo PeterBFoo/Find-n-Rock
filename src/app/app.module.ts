@@ -28,6 +28,7 @@ import { FooterComponent } from './components/footers/footer/footer.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { PublicProfileComponent } from './views/public-profile/public-profile.component';
 import { FooterSmallComponent } from './components/footers/footer-small/footer-small.component';
+import { LandingPageComponent } from './views/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { FooterSmallComponent } from './components/footers/footer-small/footer-s
     ConfirmModalComponent,
     PublicProfileComponent,
     FooterSmallComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,

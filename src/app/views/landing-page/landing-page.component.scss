@@ -1,0 +1,38 @@
+#video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
+
+#content {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
+
+.header {
+    --color-background: #ffffff;
+    --color-inverse: #ffffff;
+    color: var(--color-default);
+    background-color: var(--color-background);
+    padding: 5px 0;
+    position: fixed;
+    top: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+a {
+    color: rgb(34, 37, 41);
+    text-decoration: underline 0.15em rgba(0, 0, 0, 1);
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 200ms, text-underline-offset 200ms;
+}
+
+a:hover {
+    text-decoration-color: rgba(34, 37, 41, 1);
+    text-underline-offset: 0.4em;
+}

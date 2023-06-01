@@ -35,6 +35,8 @@ export class LoginComponent {
   }
 
   private validateInput(username: string, password: string) {
+    this.invalidInput = false
+
     if (username == "") {
       this.invalidInput = true;
       this.errorMessage = "Username is required";
@@ -47,7 +49,6 @@ export class LoginComponent {
       return false;
     }
 
-    this.invalidInput = true;
     return true;
   }
 }

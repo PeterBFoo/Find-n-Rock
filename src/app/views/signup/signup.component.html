@@ -89,10 +89,10 @@
                                     </div>
 
                                     <div class="form-outline mb-2">
-                                        <h6>Choose up to five genres that suit you the most!</h6>
+                                        <h6>Choose up to five genres that suits you the most!</h6>
 
                                         <ng-select [multiple]="true" [(ngModel)]="musicGenres" id="genreSelector"
-                                            name="musicGenres" placeholder="Search genres">
+                                            name="musicGenres" placeholder="Search genres" [maxSelectedItems]="5">
                                             <ng-option *ngFor="let genre of availableMusicGenres"
                                                 [value]="genre.name">{{genre.name}}
                                             </ng-option>

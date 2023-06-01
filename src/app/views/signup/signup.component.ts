@@ -57,20 +57,6 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  selectGenre($event: any) {
-    if (this.musicGenres.length == 5) return;
-
-    if (this.musicGenres.includes($event.target.value)) {
-      let i = this.musicGenres.indexOf($event.target.value);
-      this.musicGenres.splice(i, 1);
-      // remove atribute "selected"
-      $event.target.checked = false;
-    } else {
-      this.musicGenres.push($event.target.value);
-      $event.target.checked = true;
-    }
-  }
-
   selectRole(event: any) {
     if (event.target.value == "Entrepreneur") {
       this.entrepreneur = true;

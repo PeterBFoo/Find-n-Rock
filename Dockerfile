@@ -5,7 +5,7 @@ RUN npm i -g @angular/cli
 
 COPY . /app
 RUN npm install
-# RUN ng build --configuration production
+RUN ng build --configuration production
 
 FROM --platform=linux/amd64 nginx:alpine
 

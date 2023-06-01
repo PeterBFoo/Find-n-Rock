@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/services/interfaces/PostInterface';
 import { User } from 'src/app/services/interfaces/UserInterface';
 import { PostService } from 'src/app/services/post/post-service.service';
@@ -17,8 +17,9 @@ export class SuscriptionsViewComponent {
   suscriptions!: User[];
   loadedData: boolean = false;
   selectedCandidates: string[] = [];
+  noSuscriptionsImg = "assets/images/no_suscriptions.png"
 
-  constructor(private userService: UserService, private postService: PostService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private postService: PostService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.currentUser = this.userService.getUser();
@@ -42,9 +43,8 @@ export class SuscriptionsViewComponent {
   }
 
   chooseCandidates() {
-    this.postService.chooseCandidates(this.post.id, this.selectedCandidates).subscribe((post: Post) => {
-      this.post = post;
-      this.suscriptions = post.suscriptions;
+    this.postService.chooseCandidates(this.post.id, this.selectedCandidates).subscribe(() => {
+      this.router.navigate(['/user', 'posts']);
     });
   }
 }

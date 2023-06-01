@@ -9,17 +9,26 @@
 <div *ngIf="loadedData">
     <br><br><br><br><br><br>
     <div class="custom-container">
-        <div class="row mx-5">
-            <h4><strong>Suscriptions of post</strong></h4>
-            <br><br>
+        <div class="row mx-5 mb-5">
             <ng-container *ngIf="suscriptions.length > 0; else noSuscriptions">
+                <h4><strong>Suscriptions of post</strong></h4>
+                <br><br>
                 <div *ngFor="let suscriber of suscriptions">
                     <app-group-card (unselectCandidateEvent)="removeCandidate($event)"
                         (selectCandidateEvent)="addSelectedCandidate($event)" [suscriber]="suscriber"></app-group-card>
                 </div>
             </ng-container>
             <ng-template #noSuscriptions>
-                <h4 class="center fw-bold">You don't have any suscribers to your post yet</h4>
+                <div class="column d-flex justify-content-center">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <h4 class="center fw-bold">You don't have any suscribers to your post yet</h4>
+
+                            <img class="img-fluid" src="{{noSuscriptionsImg}}">
+                        </div>
+                    </div>
+
+                </div>
             </ng-template>
         </div>
         <div *ngIf="selectedCandidates.length > 0"
@@ -37,6 +46,5 @@
         </div>
         <app-confirm-modal (confirmEvent)="chooseCandidates()" [buttonText]="'Choose candidates'"
             [bodyText]="'All the chosen candidates will be notified via email and therefore, this post archived. Are you sure?'"></app-confirm-modal>
-
     </div>
 </div>

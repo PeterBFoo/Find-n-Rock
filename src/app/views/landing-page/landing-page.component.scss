@@ -18,21 +18,36 @@
     --color-background: #ffffff;
     --color-inverse: #ffffff;
     color: var(--color-default);
-    background-color: var(--color-background);
-    padding: 5px 0;
+    padding: 5px;
     position: fixed;
     top: 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    letter-spacing: 3px;
 }
 
 a {
-    color: rgb(34, 37, 41);
-    text-decoration: underline 0.15em rgba(0, 0, 0, 1);
-    text-underline-offset: 0.2em;
+    color: white;
+    text-decoration: underline 0.15em rgb(255, 255, 255);
+    text-underline-offset: 1em;
     transition: text-decoration-color 200ms, text-underline-offset 200ms;
 }
 
 a:hover {
-    text-decoration-color: rgba(34, 37, 41, 1);
-    text-underline-offset: 0.4em;
+    text-decoration-color: rgb(255, 255, 255);
+    text-underline-offset: 0.1em;
+}
+
+.getStarted {
+    color: white;
+    text-decoration: underline 0.15em rgb(255, 255, 255);
+    text-underline-offset: 0.1em;
+    transition: text-decoration-color 200ms, text-underline-offset 200ms;
+}
+
+.getStarted:hover {
+    text-decoration-color: rgb(255, 255, 255);
+    text-underline-offset: 0.3em;
+}
+
+h2 {
+    letter-spacing: 3px;
 }

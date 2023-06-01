@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { MusicGenre } from 'src/app/services/interfaces/MusicGenreInterface';
 import { Post } from 'src/app/services/interfaces/PostInterface';
@@ -39,10 +39,11 @@ export class EditPostComponent {
   region: string = "";
   city: string = "";
 
+  loadedData = false;
   errorMessage: string = "";
   message: string = "";
 
-  constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -57,6 +58,7 @@ export class EditPostComponent {
         this.region = this.post.region;
         this.city = this.post.city;
         this.post.genres.forEach((genre: MusicGenre) => this.selectedGenres.push(genre.name));
+        this.loadedData = true;
       })
     })
     this.currentUser = this.userService.getUser()
@@ -150,6 +152,7 @@ export class EditPostComponent {
       ).subscribe((post: any) => {
         this.post = post;
         this.message = "Post updated successfully"
+        this.router.navigate(["/post", post.id])
       });
     }
   }

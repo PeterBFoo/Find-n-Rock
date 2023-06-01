@@ -1,6 +1,7 @@
 <app-header [user]="currentUser"></app-header>
 <br><br><br>
-<div class="profile">
+<app-spinner *ngIf="!loadedData"></app-spinner>
+<div class="profile" *ngIf="loadedData">
     <div style="min-height:90vh;">
         <div id="app">
             <main class="py-4">
@@ -28,33 +29,52 @@
                                     <input type="text" [(ngModel)]="image" class="col-md-8 form-control" name="image"
                                         id="image" placeholder="Post image URL">
 
-                                    <div class="locationInfo">
-                                        <div class="mt-4">
-                                            <ng-select [(ngModel)]="countryData" name="countryData"
-                                                (change)="onSelectCountry()" id="country">
-                                                <ng-option value="" disabled selected>Choose a country</ng-option>
-                                                <ng-option *ngFor="let country of countries"
-                                                    [value]="country.code + ',' + country.name">
-                                                    {{ country.name }}
-                                                </ng-option>
-                                            </ng-select>
+                                    <div class="locationInfo row">
+                                        <div class="col-md-8">
+                                            <div class="mt-4">
+                                                <ng-select [(ngModel)]="countryData" name="countryData"
+                                                    (change)="onSelectCountry()" id="country">
+                                                    <ng-option value="" disabled selected>Choose a country</ng-option>
+                                                    <ng-option *ngFor="let country of countries"
+                                                        [value]="country.code + ',' + country.name">
+                                                        {{ country.name }}
+                                                    </ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div *ngIf="regionsLoaded" class="mt-4">
+                                                <ng-select [(ngModel)]="regionData" name="regionData"
+                                                    (change)="onSelectRegion()" id="region">
+                                                    <ng-option value="" disabled selected>Choose a region</ng-option>
+                                                    <ng-option *ngFor="let region of regions"
+                                                        [value]="region.countryCode + ',' + region.isoCode + ',' + region.name">
+                                                        {{ region.name }}
+                                                    </ng-option>
+                                                </ng-select>
+                                            </div>
+                                            <div *ngIf="citiesLoaded" class="mt-4">
+                                                <ng-select [(ngModel)]="city" name="city" id="city">
+                                                    <ng-option value="" disabled selected>
+                                                        Choose a city
+                                                    </ng-option>
+                                                    <ng-option *ngFor="let city of cities" [value]="city.name">{{
+                                                        city.name
+                                                        }}</ng-option>
+                                                </ng-select>
+                                            </div>
                                         </div>
-                                        <div *ngIf="regionsLoaded" class="mt-4">
-                                            <ng-select [(ngModel)]="regionData" name="regionData"
-                                                (change)="onSelectRegion()" id="region">
-                                                <ng-option value="" disabled selected>Choose a region</ng-option>
-                                                <ng-option *ngFor="let region of regions"
-                                                    [value]="region.countryCode + ',' + region.isoCode + ',' + region.name">
-                                                    {{ region.name }}
-                                                </ng-option>
-                                            </ng-select>
-                                        </div>
-                                        <div *ngIf="citiesLoaded" class="mt-4">
-                                            <ng-select [(ngModel)]="city" name="city" id="city">
-                                                <ng-option value="" disabled selected>Choose a city</ng-option>
-                                                <ng-option *ngFor="let city of cities" [value]="city.name">{{ city.name
-                                                    }}</ng-option>
-                                            </ng-select>
+                                        <div class="col-sm-4 mt-3">
+                                            <h6 class="mx-1"><strong>Actual country selection</strong></h6>
+                                            <div class="form-control">
+                                                <span>
+                                                    {{post.country}},
+                                                </span>
+                                                <span>
+                                                    {{post.region}},
+                                                </span>
+                                                <span>
+                                                    {{post.city}}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div *ngIf="availableMusicGenres.length > 0" class="d-flex">

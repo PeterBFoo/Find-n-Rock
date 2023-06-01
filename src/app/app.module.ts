@@ -29,6 +29,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
 import { PublicProfileComponent } from './views/public-profile/public-profile.component';
 import { FooterSmallComponent } from './components/footers/footer-small/footer-small.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { LandingPageComponent } from './views/landing-page/landing-page.componen
     PublicProfileComponent,
     FooterSmallComponent,
     LandingPageComponent,
+    LogoComponent,
   ],
   imports: [
     BrowserModule,

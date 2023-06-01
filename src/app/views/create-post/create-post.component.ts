@@ -29,13 +29,15 @@ export class CreatePostComponent implements OnInit {
   cities: City[] = [];
 
   selectedGenres: string[] = [];
-  title = '';
-  subtitle = '';
-  body = '';
-  image = '';
-  country = '';
-  region = '';
-  city = '';
+  title = "";
+  subtitle = "";
+  body = "";
+  image = "";
+  country = "";
+  region = "";
+  city = "";
+
+  errorMessage = "";
 
   constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService, private router: Router) { }
 
@@ -133,7 +135,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   private isValidForm() {
-    console.log(this);
     let isFormValid = true;
     let mandatoryFields: any = {
       title: this.title,
@@ -150,16 +151,13 @@ export class CreatePostComponent implements OnInit {
       let element = document.getElementById(field);
       if (!mandatoryFields[field] || mandatoryFields[field].length === 0) {
         isFormValid = false;
-        if (element) {
-          this.addInvalidClass(element);
-        }
+        if (element) this.addInvalidClass(element);
       } else {
-        if (element) {
-          this.removeInvalidClass(element);
-        }
+        if (element) this.removeInvalidClass(element);
       }
     }
 
+    this.errorMessage = isFormValid ? "" : "Please fill all the fields";
     return isFormValid;
   }
 

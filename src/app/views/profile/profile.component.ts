@@ -47,14 +47,8 @@ export class ProfileComponent {
     if (this.areValidFields(changes) && fields.length > 0) {
       this.userService.updateUser(changes).subscribe(
         (response) => {
-          if (fields.includes("image")) window.location.reload();
-
           this.userService.setUser(response);
-          this.changedInfoState = true;
-
-          setInterval(() => {
-            this.changedInfoState = false;
-          }, 5000);
+          window.location.reload();
         });
     } else {
       this.infoErrorMessage = "No changes were made";

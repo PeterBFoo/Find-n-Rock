@@ -26,11 +26,11 @@
                         <p class="card-text font-weight-bold mb-0">{{post.subtitle}}</p>
                     </div>
                     <div class="col-auto">
-                        <button *ngIf="post.active" (click)="seeSuscriptions()" class="btn btn-primary mx-3">Manage
-                            suscribers</button>
                         <button *ngIf="post.active" (click)="deletePost()" class="btn btn-danger mx-3">Delete</button>
                         <button *ngIf="post.active" (click)="modifyPost()"
                             class="btn btn-secondary mx-3">Modify</button>
+                        <button *ngIf="post.active" (click)="seeSuscriptions()" class="btn btn-success mx-3">Manage
+                            suscribers</button>
                         <button (click)="showPost()" class="btn btn-primary mx-3">See details</button>
                     </div>
                 </div>

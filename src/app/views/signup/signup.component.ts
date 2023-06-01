@@ -39,11 +39,10 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.musicGenreService.getAllMusicGenres().subscribe((musicGenres: MusicGenre[]) => {
       this.availableMusicGenres = musicGenres;
-    });
-
-    this.countryService.getAllCountries().subscribe((countriesData: CountriesData) => {
-      this.availableCountries = countriesData.data;
-      this.dataloaded = true;
+      this.countryService.getAllCountries().subscribe((countriesData: CountriesData) => {
+        this.availableCountries = countriesData.data;
+        this.dataloaded = true;
+      });
     });
   }
 
@@ -68,12 +67,7 @@ export class SignupComponent implements OnInit {
   }
 
   validateFields() {
-    let mandatoryFields = ["username", "password", "name", "email", "address", "phoneNumber", "country", "image", "description"];
-    let mandatoryFieldsGroup = ["integrants", "musicGenres"];
-
-    if (this.musicGroup) {
-      mandatoryFields = mandatoryFields.concat(mandatoryFieldsGroup);
-    }
+    let mandatoryFields = this.getMandatoryFields();
 
     let component: any = this;
     let isValid = true;
@@ -83,6 +77,8 @@ export class SignupComponent implements OnInit {
         isValid = false;
         this.errorMessage = "Please fill all the fields";
         this.addErrorClass(field);
+      } else {
+        this.removeErrorClass(field);
       }
     });
 
@@ -93,19 +89,38 @@ export class SignupComponent implements OnInit {
     }
 
     let imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
-
     if (!imageRegex.test(this.image)) {
       this.errorMessage = "Please enter a valid image url";
       isValid = false;
     }
 
+    if (isNaN(this.integrants)) {
+      this.errorMessage = "Integrants must be a number"
+      isValid = false
+    }
+
     return isValid;
+  }
+
+  private getMandatoryFields(): string[] {
+    let mandatoryFields = ["username", "password", "name", "email", "address", "phoneNumber", "country", "image", "description"];
+    let mandatoryFieldsGroup = ["integrants", "musicGenres"];
+
+    if (this.musicGroup) {
+      mandatoryFields = mandatoryFields.concat(mandatoryFieldsGroup);
+    }
+
+    return mandatoryFields;
   }
 
   resetForm() {
     let form = document.getElementById("signupForm") as HTMLFormElement;
     form.reset();
     this.clearGenres();
+    this.getMandatoryFields().forEach((field) => {
+      this.removeErrorClass(field);
+    })
+    this.errorMessage = "";
   }
 
   clearGenres() {
@@ -115,6 +130,11 @@ export class SignupComponent implements OnInit {
   private addErrorClass(field: string) {
     let element: any = document.getElementById(field);
     element.classList.add("is-invalid");
+  }
+
+  private removeErrorClass(field: string) {
+    let element: any = document.getElementById(field);
+    element.classList.remove("is-invalid");
   }
 
   private registerEntrepreneur() {

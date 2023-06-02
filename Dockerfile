@@ -10,3 +10,5 @@ RUN ng build --configuration production
 FROM --platform=linux/amd64 nginx:alpine
 
 COPY --from=build /app/dist/find-n-rock /usr/share/nginx/html
+EXPOSE 80
+EXPOSE 443

@@ -1,13 +1,7 @@
 <app-header [user]="currentUser"></app-header>
+<app-spinner *ngIf="!loadedData"></app-spinner>
 <br><br><br><br><br><br>
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Job Offer</title>
-</head>
-
-<div class="custom-container">
+<div *ngIf="loadedData" class="custom-container">
     <div class="row">
         <div class="col-md-8">
             <div class="card">
@@ -23,7 +17,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <p><strong>Location</strong></p>
-                                    <p>{{post.country}} {{post.region}} {{post.city}}</p>
+                                    <span>
+                                        {{post.country}}
+                                    </span>
+                                    <span *ngIf="post.region != ''">
+                                        - {{post.region}}
+                                    </span>
+                                    <span *ngIf="post.city != ''">
+                                        - {{post.city}}
+                                    </span>
                                 </div>
                                 <div class="col-md-6">
                                     <p><strong>Related music genres:</strong></p>

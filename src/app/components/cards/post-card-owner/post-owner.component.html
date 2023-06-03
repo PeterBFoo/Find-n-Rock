@@ -7,9 +7,15 @@
             <div class="col pl-0 align-self-center">
                 <h5 class="card-title mb-1">{{post.title}}</h5>
                 <div class="card-text mb-0">
-                    <span class="">{{post.country}}</span>
-                    <span class="mx-2">{{post.region}}</span>
-                    <span class="">{{post.city}}</span>
+                    <span>
+                        {{post.country}}
+                    </span>
+                    <span *ngIf="post.region != ''">
+                        - {{post.region}}
+                    </span>
+                    <span *ngIf="post.city != ''">
+                        - {{post.city}}
+                    </span>
                 </div>
                 <p>
                     <span class="badge bg-secondary

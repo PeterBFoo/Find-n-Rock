@@ -69,11 +69,11 @@
                                                 <span>
                                                     {{post.country}}
                                                 </span>
-                                                <span class="mx-1">
-                                                    {{post.region}}
+                                                <span *ngIf="post.region != ''">
+                                                    - {{post.region}}
                                                 </span>
-                                                <span>
-                                                    {{post.city}}
+                                                <span *ngIf="post.city != ''">
+                                                    - {{post.city}}
                                                 </span>
                                             </div>
                                         </div>

@@ -8,9 +8,15 @@
                 <h5 class="card-title mb-1">{{post.title}}</h5>
                 <p class="card-text mb-2">{{post.user.username}}</p>
                 <div class="card-text mb-0">
-                    <span class="">{{post.country}}</span>
-                    <span class="mx-2">{{post.region}}</span>
-                    <span class="">{{post.city}}</span>
+                    <span>
+                        {{post.country}}
+                    </span>
+                    <span *ngIf="post.region != ''">
+                        - {{post.region}}
+                    </span>
+                    <span *ngIf="post.city != ''">
+                        - {{post.city}}
+                    </span>
                 </div>
                 <span class="badge bg-secondary
                 text-white mx-1" *ngFor="let genre of post.genres">

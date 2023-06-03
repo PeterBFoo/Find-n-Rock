@@ -65,14 +65,13 @@ ul {
 
 li {
   margin-top: 0;
-  list-style: square;
-  margin-left: 20px;
+  list-style: none;
+  margin-left: 10px;
   margin-right: 20px;
   font-size: 20px;
 }
 
 a {
-  transition: 500ms;
   color: white;
   text-decoration: none;
 }
@@ -80,6 +79,7 @@ a {
 a:hover {
   text-decoration: underline;
   color: lightgray;
+  transition: 200ms;
 }
 
 #content {

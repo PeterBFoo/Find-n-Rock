@@ -19,7 +19,11 @@
         <li><a routerLink="/posts/create">Create new post</a></li>
         <li><a routerLink="/user/posts">My posts</a></li>
       </div>
-      <li><a (click)="onLogout()" routerLink="/login">Log out</a></li>
+      <div class="mt-2">
+        <li>
+          <a class="text-center text-danger h5" (click)="onLogout()" routerLink="/login">Log out</a>
+        </li>
+      </div>
     </ul>
   </nav>
 </header>

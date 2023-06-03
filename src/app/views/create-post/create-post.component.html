@@ -36,7 +36,7 @@
                                                 (change)="onSelectCountry()" id="country">
                                                 <ng-option value="" disabled selected>Choose a country</ng-option>
                                                 <ng-option *ngFor="let country of countries"
-                                                    [value]="country.code + ',' + country.name">
+                                                    [value]="country.iso2 + ',' + country.name">
                                                     {{ country.name }}
                                                 </ng-option>
                                             </ng-select>
@@ -46,13 +46,13 @@
                                                 (change)="onSelectRegion()" id="region">
                                                 <ng-option value="" disabled selected>Choose a region</ng-option>
                                                 <ng-option *ngFor="let region of regions"
-                                                    [value]="region.countryCode + ',' + region.isoCode + ',' + region.name">
+                                                    [value]="selectedCountryCode + ',' + region.iso2 + ',' + region.name">
                                                     {{ region.name }}
                                                 </ng-option>
                                             </ng-select>
                                         </div>
                                         <div *ngIf="citiesLoaded" class="mt-4">
-                                            <ng-select [(ngModel)]="city" name="city" id="city">
+                                            <ng-select [(ngModel)]="selectedCity" name="selectedCity" id="selectedCity">
                                                 <ng-option value="" disabled selected>Choose a city</ng-option>
                                                 <ng-option *ngFor="let city of cities" [value]="city.name">{{ city.name
                                                     }}</ng-option>

@@ -1,4 +1,3 @@
-import { combineLatest } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MusicGenre } from 'src/app/services/interfaces/MusicGenreInterface';
 import { MusicGenreService } from 'src/app/services/musicGenre/music-genre.service';
@@ -7,6 +6,7 @@ import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
 import { City } from 'src/app/shared/countries/interfaces/CitiesInterface';
 import { Region } from 'src/app/shared/countries/interfaces/RegionsInterface';
 import { SearchData } from './interfaces/SearchEventInterface';
+import { CountryManagerService } from 'src/app/services/country/country-manager.service';
 
 @Component({
   selector: 'app-searcher',
@@ -23,6 +23,7 @@ export class SearcherComponent implements OnInit {
   countries!: Country[];
   countryData: string = "";
   selectedCountry: string = "";
+  selectedCountryCode: string = "";
 
   regions: Region[] = [];
   regionData: string = "";
@@ -35,7 +36,7 @@ export class SearcherComponent implements OnInit {
 
   dataLoaded: boolean = false;
 
-  constructor(private genreService: MusicGenreService, private countryService: CountriesService) { }
+  constructor(private genreService: MusicGenreService, private countryService: CountriesService, private countryManager: CountryManagerService) { }
 
   ngOnInit(): void {
     this.genreService.getAllMusicGenres().subscribe((genres) => {
@@ -44,47 +45,17 @@ export class SearcherComponent implements OnInit {
     })
 
     this.countryService.getAllCountries().subscribe((countries) => {
-      this.countries = countries.data;
+      this.countries = countries;
       this.dataLoaded = true
     })
   }
 
   onSelectCountry(): void {
-    if (this.countryData === "" || this.countryData === null) {
-      this.selectedCountry = "";
-      this.removeSelectedCityAndRegion();
-      return;
-    }
-
-    let countryInfo = this.countryData.split(',');
-    let countryCode = countryInfo[0];
-    this.selectedCountry = countryInfo[1];
-    this.removeSelectedCityAndRegion();
-
-    this.countryService.getRegionsOfCountry(countryCode).subscribe((regions: any) => {
-      this.regions = regions.data;
-      this.regionsLoaded = true;
-    });
+    this.countryManager.selectCountry(this);
   }
 
   onSelectRegion(): void {
-    if (this.regionData === null) {
-      this.selectedRegion = "";
-      this.removeSelectedCity();
-      return;
-    }
-
-    let regionInfo = this.regionData.split(',');
-    let countryCode = regionInfo[0];
-    let regionCode = regionInfo[1];
-    this.selectedRegion = regionInfo[2];
-
-    this.removeSelectedCity();
-
-    this.countryService.getCitiesOfRegionAndContry(countryCode, regionCode).subscribe((cities: any) => {
-      this.cities = cities.data;
-      this.citiesLoaded = true;
-    });
+    this.countryManager.selectRegion(this);
   }
 
   searchPosts(): void {
@@ -106,26 +77,8 @@ export class SearcherComponent implements OnInit {
     this.selectedGenre = "";
     this.countryData = "";
     this.selectedCountry = "";
-    this.removeSelectedCityAndRegion();
+    this.countryManager.removeSelectedCityAndRegion(this);
 
     this.searchPosts();
-  }
-
-  private removeSelectedCityAndRegion(): void {
-    this.removeSelectedRegion();
-    this.removeSelectedCity();
-  }
-
-  private removeSelectedRegion(): void {
-    this.regionsLoaded = false;
-    this.regions = [];
-    this.regionData = "";
-    this.selectedRegion = "";
-  }
-
-  private removeSelectedCity(): void {
-    this.citiesLoaded = false;
-    this.cities = [];
-    this.selectedCity = "";
   }
 }

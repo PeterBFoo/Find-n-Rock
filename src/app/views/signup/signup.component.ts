@@ -4,7 +4,6 @@ import { MusicGenre } from 'src/app/services/interfaces/MusicGenreInterface';
 import { MusicGenreService } from 'src/app/services/musicGenre/music-genre.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { CountriesService } from 'src/app/shared/countries/countries.service';
-import { CountriesData } from 'src/app/shared/countries/interfaces/CountriesInterface';
 import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
 import { catchError } from 'rxjs';
 
@@ -39,8 +38,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.musicGenreService.getAllMusicGenres().subscribe((musicGenres: MusicGenre[]) => {
       this.availableMusicGenres = musicGenres;
-      this.countryService.getAllCountries().subscribe((countriesData: CountriesData) => {
-        this.availableCountries = countriesData.data;
+      this.countryService.getAllCountries().subscribe((countries: Country[]) => {
+        this.availableCountries = countries;
         this.dataloaded = true;
       });
     });

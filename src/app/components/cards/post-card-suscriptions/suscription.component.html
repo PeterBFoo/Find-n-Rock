@@ -7,11 +7,15 @@
             <div class="col pl-0 align-self-center">
                 <h5 class="card-title mb-1">{{post.title}}</h5>
                 <p class="card-text mb-2">{{post.user.username}}</p>
-                <p class="card-text mb-0">{{post.country}}, {{post.region}}, {{post.city}}
-                <p>
-                    <span *ngFor="let genre of post.genres">
-                        {{genre.name}}
-                    </span>
+                <div class="card-text mb-0">
+                    <span class="">{{post.country}}</span>
+                    <span class="mx-2">{{post.region}}</span>
+                    <span class="">{{post.city}}</span>
+                </div>
+                <span class="badge bg-secondary
+                text-white mx-1" *ngFor="let genre of post.genres">
+                    {{genre.name}}
+                </span>
                 <p class="card-text mb-0">
                     This post is:
                     <span *ngIf="post.active" class="text-success">Active</span>

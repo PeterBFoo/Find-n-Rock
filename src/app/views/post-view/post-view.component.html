@@ -23,11 +23,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <p><strong>Location</strong></p>
-                                    <p>{{post.country}}, {{post.region}}, {{post.city}}</p>
+                                    <p>{{post.country}} {{post.region}} {{post.city}}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <p><strong>Related music genres:</strong></p>
-                                    <span *ngFor="let genre of post.genres">
+                                    <span class="badge bg-secondary
+                                    text-white mx-1" *ngFor="let genre of post.genres">
                                         {{genre.name}}
                                     </span>
                                 </div>

@@ -6,9 +6,14 @@
             </div>
             <div class="col pl-0 align-self-center">
                 <h5 class="card-title mb-1">{{post.title}}</h5>
-                <p class="card-text mb-0">{{post.country}}, {{post.region}}, {{post.city}}
+                <div class="card-text mb-0">
+                    <span class="">{{post.country}}</span>
+                    <span class="mx-2">{{post.region}}</span>
+                    <span class="">{{post.city}}</span>
+                </div>
                 <p>
-                    <span *ngFor="let genre of post.genres">
+                    <span class="badge bg-secondary
+                    text-white mx-1" *ngFor="let genre of post.genres">
                         {{genre.name}}
                     </span>
                 <p class="card-text mb-0">

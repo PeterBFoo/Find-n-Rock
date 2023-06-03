@@ -19,7 +19,7 @@
                 <label for="country" class="form-label">Country</label>
                 <ng-select [(ngModel)]="countryData" name="countryData" (change)="onSelectCountry()" id="country">
                     <ng-option value="" disabled selected>Choose a country</ng-option>
-                    <ng-option *ngFor="let country of countries" [value]="country.code + ',' + country.name">
+                    <ng-option *ngFor="let country of countries" [value]="country.iso2 + ',' + country.name">
                         {{ country.name }}
                     </ng-option>
                 </ng-select>
@@ -31,7 +31,7 @@
                     <ng-select [(ngModel)]="regionData" name="regionData" (change)="onSelectRegion()" id="region">
                         <ng-option value="" disabled selected>Choose a region</ng-option>
                         <ng-option *ngFor="let region of regions"
-                            [value]="region.countryCode + ',' + region.isoCode + ',' + region.name">
+                            [value]="selectedCountryCode + ',' + region.iso2 + ',' + region.name">
                             {{ region.name }}
                         </ng-option>
                     </ng-select>

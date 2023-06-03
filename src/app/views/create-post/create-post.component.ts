@@ -10,36 +10,42 @@ import { Region } from 'src/app/shared/countries/interfaces/RegionsInterface';
 import { PostService } from 'src/app/services/post/post-service.service';
 import { Post } from 'src/app/services/interfaces/PostInterface';
 import { Router } from '@angular/router';
+import { CountryManagerService } from 'src/app/services/country/country-manager.service';
+import { CountryManagerInterface } from 'src/app/services/country/interface/CountryManagerInterface';
 
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss']
 })
-export class CreatePostComponent implements OnInit {
+export class CreatePostComponent implements CountryManagerInterface, OnInit {
   currentUser!: User
   availableMusicGenres: MusicGenre[] = [];
-
-  countryData: string = "";
-  countries: Country[] = [];
-  regionData: string = "";
-  regions: Region[] = [];
-  citiesLoaded: boolean = false;
-  regionsLoaded: boolean = false;
-  cities: City[] = [];
-
   selectedGenres: string[] = [];
   title = "";
   subtitle = "";
   body = "";
   image = "";
-  country = "";
-  region = "";
-  city = "";
-
   errorMessage = "";
 
-  constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService, private router: Router) { }
+  // country manager
+  countryData: string = "";
+  regionData: string = "";
+
+  countries: Country[] = [];
+  regions: Region[] = [];
+  cities: City[] = [];
+
+  selectedCountry: string = "";
+  selectedRegion: string = "";
+  selectedCity: string = "";
+  selectedCountryCode: string = "";
+
+  citiesLoaded: boolean = false;
+  regionsLoaded: boolean = false;
+  // end country manager
+
+  constructor(private userService: UserService, private musicGenres: MusicGenreService, private countryService: CountriesService, private postService: PostService, private countryManager: CountryManagerService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getUser()
@@ -48,7 +54,7 @@ export class CreatePostComponent implements OnInit {
     });
 
     this.countryService.getAllCountries().subscribe((countries) => {
-      this.countries = countries.data;
+      this.countries = countries;
     });
   }
 
@@ -62,57 +68,11 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSelectCountry(): void {
-    if (this.countryData === "" || this.countryData === null) {
-      this.removeSelectedCityAndRegion();
-      return;
-    }
-
-    let countryInfo = this.countryData.split(',');
-    let countryCode = countryInfo[0];
-    this.country = countryInfo[1];
-    this.removeSelectedCityAndRegion();
-
-    this.countryService.getRegionsOfCountry(countryCode).subscribe((regions: any) => {
-      this.regions = regions.data;
-      this.regionsLoaded = true;
-    });
+    this.countryManager.selectCountry(this);
   }
 
   onSelectRegion(): void {
-    if (this.regionData === "" || this.regionData === null) {
-      this.removeSelectedCity();
-      return;
-    }
-
-    let regionInfo = this.regionData.split(',');
-    let countryCode = regionInfo[0];
-    let regionCode = regionInfo[1];
-    this.region = regionInfo[2];
-
-    this.removeSelectedCity();
-
-    this.countryService.getCitiesOfRegionAndContry(countryCode, regionCode).subscribe((cities: any) => {
-      this.cities = cities.data;
-      this.citiesLoaded = true;
-    });
-  }
-
-  private removeSelectedCityAndRegion(): void {
-    this.removeSelectedRegion();
-    this.removeSelectedCity();
-  }
-
-  private removeSelectedRegion(): void {
-    this.regions = [];
-    this.regionData = "";
-    this.region = "";
-    this.regionsLoaded = false;
-  }
-
-  private removeSelectedCity(): void {
-    this.cities = [];
-    this.city = "";
-    this.citiesLoaded = false;
+    this.countryManager.selectRegion(this);
   }
 
   createPost() {
@@ -122,9 +82,9 @@ export class CreatePostComponent implements OnInit {
         subtitle: this.subtitle,
         body: this.body,
         image: this.image,
-        country: this.country,
-        region: this.region,
-        city: this.city,
+        country: this.selectedCountry,
+        region: this.selectedRegion,
+        city: this.selectedCity,
         genres: this.selectedGenres
       }
 
@@ -141,9 +101,7 @@ export class CreatePostComponent implements OnInit {
       subtitle: this.subtitle,
       body: this.body,
       image: this.image,
-      country: this.country,
-      region: this.region,
-      city: this.city,
+      country: this.selectedCountry,
       selectedGenres: this.selectedGenres
     }
 

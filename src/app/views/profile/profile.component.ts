@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from 'src/app/services/interfaces/UserInterface';
 import { UserService } from 'src/app/services/user/user.service';
 import { CountriesService } from 'src/app/shared/countries/countries.service';
 import { Country } from 'src/app/shared/countries/interfaces/CountryInterface';
@@ -36,7 +35,7 @@ export class ProfileComponent {
   constructor(private userService: UserService, private countryService: CountriesService) {
     this.countryService.getAllCountries().subscribe(
       (response) => {
-        this.availableCountries = response.data;
+        this.availableCountries = response;
       });
   }
 

@@ -1,6 +1,5 @@
 export interface Country {
-    code: number;
-    currencyCodes: string[];
+    id: number;
     name: string;
-    wikiDataId: string;
+    iso2: string;
 }

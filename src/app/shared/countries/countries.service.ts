@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CountriesData } from './interfaces/CountriesInterface';
 import { Region } from './interfaces/RegionsInterface';
 import { City } from './interfaces/CitiesInterface';
+import { Country } from './interfaces/CountryInterface';
 import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
@@ -13,43 +13,35 @@ export class CountriesService {
 
     private countriesUrl = environment.countriesUrl;
     private apiKey = environment.apiKey;
-    private apiHost = environment.apiHost;
+    private header = {
+        'X-CSCAPI-KEY': this.apiKey
+    }
 
     constructor(private http: HttpClient) { }
 
-    getAllCountries(): Observable<CountriesData> {
-        return this.http.get<CountriesData>(this.countriesUrl, {
-            headers: {
-                'X-RapidAPI-Key': this.apiKey,
-                'X-RapidAPI-Host': this.apiHost,
-            }
+    getAllCountries(): Observable<Country[]> {
+        return this.http.get<Country[]>(`${this.countriesUrl}`, {
+            headers: this.header
         });
     }
 
     getRegionsOfCountry(countryCode: string): Observable<Region[]> {
         return this.http.get<Region[]>(this.getUrlOfRegions(countryCode), {
-            headers: {
-                'X-RapidAPI-Key': this.apiKey,
-                'X-RapidAPI-Host': this.apiHost,
-            }
+            headers: this.header
         });
     }
 
     getCitiesOfRegionAndContry(countryCode: string, regionCode: string): Observable<City[]> {
         return this.http.get<City[]>(this.getUrlOfCity(countryCode, regionCode), {
-            params: { types: 'CITY' },
-            headers: {
-                'X-RapidAPI-Key': this.apiKey,
-                'X-RapidAPI-Host': this.apiHost,
-            }
+            headers: this.header
         });
     }
 
     private getUrlOfRegions(countryCode: string): string {
-        return this.countriesUrl + '/' + countryCode + '/regions';
+        return `${this.countriesUrl}/${countryCode}/states`;
     }
 
     private getUrlOfCity(countryCode: string, regionCode: string): string {
-        return this.countriesUrl + '/' + countryCode + '/regions/' + regionCode + '/cities';
+        return `${this.countriesUrl}/${countryCode}/states/${regionCode}/cities`;
     }
 }

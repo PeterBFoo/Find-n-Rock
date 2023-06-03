@@ -1,4 +1,4 @@
 export const env = {
-    COUNTRIES_SERVICE_API_KEY: '516cd590b4mshd61ecf6bead6f7dp12b432jsn1fcbe0fca825',
-    COUNTRIES_SERVICE_API_HOST: 'wft-geo-db.p.rapidapi.com'
+    COUNTRIES_SERVICE_API_KEY: 'NEh5NGprSGlKUVc5M1VoZlNjT0xUNHlaeTdGcWZzS3RibDl2d3pneQ==',
+    COUNTRIES_SERVICE_API_HOST: 'https://api.countrystatecity.in/v1/countries'
 }

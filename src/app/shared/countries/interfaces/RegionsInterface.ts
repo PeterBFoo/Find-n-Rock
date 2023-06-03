@@ -1,7 +1,5 @@
 export interface Region {
-    countryCode: string;
-    fipsCode: string;
-    isoCode: string;
-    name: string;
-    wikiDataId: string;
+    id: number,
+    name: string,
+    iso2: string,
 }

@@ -1,6 +1,6 @@
 <app-spinner *ngIf="!renderedVideo"></app-spinner>
 <section *ngIf="renderedVideo">
-    <video id="video-background" src="{{landingVideo}}" autoplay loop muted></video>
+    <video id="video-background" preload="metadata" src=" {{landingVideo}}" autoplay loop muted></video>
     <header id="header" class="header position-relative d-flex align-items-center scroll-up-sticky">
         <div class="container-fluid d-flex justify-content-end">
             <h4 class="mt-2">

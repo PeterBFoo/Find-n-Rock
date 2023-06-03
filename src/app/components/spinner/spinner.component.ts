@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent {
+  loading: boolean = true;
+
+  constructor() { }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 5000);
+
+  }
 
 }

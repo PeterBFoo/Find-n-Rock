@@ -93,7 +93,7 @@ export class SignupComponent implements OnInit {
       isValid = false;
     }
 
-    if (isNaN(this.integrants)) {
+    if (isNaN(this.integrants) && this.musicGroup) {
       this.errorMessage = "Integrants must be a number"
       isValid = false
     }

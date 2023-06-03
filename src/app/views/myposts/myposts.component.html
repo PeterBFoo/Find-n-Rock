@@ -3,7 +3,6 @@
     <app-spinner></app-spinner>
 </div>
 <div *ngIf="loadedData">
-    <br><br><br><br><br><br>
     <div class="custom-container">
         <div class="row mx-5">
             <select [(ngModel)]="mode" name="mode" class="form-select w-25 float-start mb-5" id="mode"
@@ -30,16 +29,14 @@
             <ng-template #noPostsFound>
                 <div class="d-flex justify-content-center flex-column align-items-center">
                     <h4 class="center fw-bold">You don't have any active post</h4>
-                    <br>
-                    <img class="center small-image" src="{{ postsNotFoundImage }}">
+                    <img class="center small-image mt-5" src="{{ postsNotFoundImage }}">
                 </div>
 
             </ng-template>
             <ng-template #noOldPostsFound>
                 <div class="d-flex justify-content-center flex-column align-items-center">
                     <h4 class="center fw-bold">You don't have any old posts</h4>
-                    <br>
-                    <img class="center small-image" src="{{ postsNotFoundImage }}">
+                    <img class="center small-image mt-2" src="{{ postsNotFoundImage }}">
                 </div>
             </ng-template>
         </div>

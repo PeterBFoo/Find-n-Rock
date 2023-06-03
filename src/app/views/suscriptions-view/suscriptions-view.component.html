@@ -1,18 +1,12 @@
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-</head>
 <app-header [user]="currentUser"></app-header>
 <div *ngIf="!loadedData">
     <app-spinner></app-spinner>
 </div>
 <div *ngIf="loadedData">
-    <br><br><br><br><br><br>
     <div class="custom-container">
         <div class="row mx-5 mb-5">
             <ng-container *ngIf="suscriptions.length > 0; else noSuscriptions">
-                <h4><strong>Suscriptions of post</strong></h4>
-                <br><br>
+                <h4 class="mb-3"><strong>Suscriptions of post</strong></h4>
                 <div *ngFor="let suscriber of suscriptions">
                     <app-group-card (unselectCandidateEvent)="removeCandidate($event)"
                         (selectCandidateEvent)="addSelectedCandidate($event)" [suscriber]="suscriber"></app-group-card>

@@ -115,6 +115,18 @@ export class CreatePostComponent implements CountryManagerInterface, OnInit {
       }
     }
 
+    let imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+    let element = document.getElementById('image');
+
+    if (!imageRegex.test(this.image)) {
+      this.errorMessage = "Please enter a valid image url";
+      if (element) this.addInvalidClass(element);
+      return false;
+
+    } else {
+      if (element) this.removeInvalidClass(element);
+    }
+
     this.errorMessage = isFormValid ? "" : "Please fill all the fields";
     return isFormValid;
   }

@@ -3,11 +3,9 @@
     <app-spinner></app-spinner>
 </div>
 <div *ngIf="loadedData">
-    <br><br><br><br><br><br>
     <div class="custom-container">
         <div class="row mx-5">
-            <h4 *ngIf="posts.length > 0"><strong>Suscribed posts</strong></h4>
-            <br><br>
+            <h4 *ngIf="posts.length > 0" class="mb-3"><strong>Suscribed posts</strong></h4>
             <ng-container *ngIf="posts.length > 0; else noPostsFound">
                 <div *ngFor="let post of posts">
                     <app-suscription (unsuscribedEvent)="unsuscribedEvent($event)" [post]="post"></app-suscription>
@@ -15,8 +13,7 @@
             </ng-container>
             <ng-template #noPostsFound>
                 <h4 class="center fw-bold">You haven't suscribed to any posts</h4>
-                <br><br><br>
-                <img class="center small-image" src="{{ postsNotFoundImage }}">
+                <img class="center small-image mt-5" src="{{ postsNotFoundImage }}">
             </ng-template>
         </div>
     </div>

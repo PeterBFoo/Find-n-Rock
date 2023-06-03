@@ -1,5 +1,4 @@
 <app-header [user]="currentUser"></app-header>
-<br><br><br>
 <app-spinner *ngIf="!loadedData"></app-spinner>
 <div class="profile" *ngIf="loadedData">
     <div style="min-height:90vh;">
@@ -7,7 +6,9 @@
             <main class="py-4">
                 <div class="row justify-content-center">
                     <div class="col-lg-10 pt-2">
-                        <h4><strong>Edit your post</strong></h4>
+                        <div class="mt-1 mb-4">
+                            <h3>Edit your post</h3>
+                        </div>
                         <div class="card py-4 mb-5 mt-md-3 bg-white rounded "
                             style="box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175)">
                             <form>

@@ -15,6 +15,7 @@ export class PublicProfileComponent implements OnInit {
   currentUser: User = this.userService.getUser();
   chosenInPosts: number = 0;
   suscribedToPosts: number = 0;
+  isMusician: boolean = false;
   dataLoaded: boolean = false;
 
 
@@ -24,12 +25,17 @@ export class PublicProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userService.getUserByUsername(params["username"]).subscribe(user => {
         this.userProfile = user;
+        this.isMusician = this.userProfile.role.canSubscribe;
+
+
+        if (this.isMusician) {
+          this.postService.getChosenPostsOfUser().subscribe(posts => {
+            this.chosenInPosts = posts.length;
+          });
+        }
+
         this.dataLoaded = true;
       });
-    });
-
-    this.postService.getChosenPostsOfUser().subscribe(posts => {
-      this.chosenInPosts = posts.length;
     });
 
     this.postService.getHistoryPosts().subscribe(posts => {

@@ -22,7 +22,7 @@
                                 <label>Country</label>
                                 <p>{{userProfile.country}}</p>
                             </div>
-                            <div class="media">
+                            <div *ngIf="isMusician" class="media">
                                 <label>Integrants</label>
                                 <p>{{userProfile.integrants}}</p>
                             </div>
@@ -36,7 +36,7 @@
                                 <label>Phone</label>
                                 <p>{{userProfile.phone}}</p>
                             </div>
-                            <div class="media">
+                            <div *ngIf="isMusician" class="media">
                                 <label>Related genres</label>
                                 <p>
                                     <span *ngFor="let genre of userProfile.musicalGenres">
@@ -50,11 +50,11 @@
             </div>
 
             <div class="col-lg-6">
-                <div class="about-avatar mx-5">
-                    <img src="{{userProfile.image}}" title="" alt="user_image">
+                <div class="about-avatar d-flex justify-content-center mx-5">
+                    <img src="{{userProfile.image}}" alt="user_image">
                 </div>
             </div>
-            <div class="counter">
+            <div *ngIf="isMusician" class="counter">
                 <div class="row mt-5">
                     <div class="col-6 col-rg-3">
                         <div class="count-data text-center">
@@ -66,6 +66,16 @@
                         <div class="count-data text-center">
                             <h6 class="count h2">{{suscribedToPosts}}</h6>
                             <p class="m-0px font-w-600">Total suscriptions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!isMusician" class="counter">
+                <div class="row mt-5">
+                    <div class="d-flex justify-content-center">
+                        <div class="count-data text-center">
+                            <h6 class="count h2">{{suscribedToPosts}}</h6>
+                            <p class="m-0px font-w-600">Created posts</p>
                         </div>
                     </div>
                 </div>

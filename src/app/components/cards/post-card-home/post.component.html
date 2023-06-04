@@ -6,7 +6,8 @@
             </div>
             <div class="col pl-0 align-self-center">
                 <h5 class="card-title mb-1">{{post.title}}</h5>
-                <p class="card-text mb-2">{{post.user.username}}</p>
+                <a class="card-text mb-2 text-primary" routerLink="/user/profile/{{post.user.username}}">
+                    {{post.user.username}}</a>
                 <div class="card-text mb-0">
                     <span>
                         {{post.country}}

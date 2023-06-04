@@ -21,3 +21,11 @@
     border: 2px solid rgb(34, 37, 41);
     border-radius: 3%;
 }
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

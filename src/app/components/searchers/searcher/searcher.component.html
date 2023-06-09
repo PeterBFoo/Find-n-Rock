@@ -48,7 +48,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit" (click)="searchPosts()" class="mb-3 btn btn-primary">Search</button>
+        <button type="submit" [disabled]="!areFiltersActive()" (click)="searchPosts()"
+            class="mb-3 btn btn-primary">Search</button>
         <button *ngIf="areFiltersActive()" type="submit" (click)="removeFilters()" class="btn btn-danger">Remove
             filters</button>
 

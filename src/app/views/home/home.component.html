@@ -6,19 +6,37 @@
     <div class="custom-container">
         <div class="row">
             <div class="col-md-3">
-                <app-searcher (searchEvent)="onNewSearch($event)"></app-searcher>
+                <div *ngIf="isArtist">
+                    <app-searcher (searchEvent)="onNewSearch($event)"></app-searcher>
+                </div>
+                <div *ngIf="isEntrepreneur">
+                    <app-user-searcher (searchUsersEvent)="onNewUsersSearch($event)"></app-user-searcher>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="row mt-3">
-                    <ng-container *ngIf="posts.length > 0; else noPostsFound">
-                        <div *ngFor="let post of posts">
-                            <app-post [post]="post"></app-post>
-                        </div>
-                    </ng-container>
-                    <ng-template #noPostsFound>
-                        <h4 class="center fw-bold">Oops! We couln't find any posts matching your criteria</h4>
-                        <img class="center small-image mt-5" src="{{ postsNotFoundImage }}">
-                    </ng-template>
+                    <div *ngIf="isArtist">
+                        <ng-container *ngIf="posts.length > 0; else noPostsFound">
+                            <div *ngFor="let post of posts">
+                                <app-post [post]="post"></app-post>
+                            </div>
+                        </ng-container>
+                        <ng-template #noPostsFound>
+                            <h4 class="center fw-bold">Oops! We couln't find any posts matching your criteria</h4>
+                            <img class="center small-image mt-5" src="{{ postsNotFoundImage }}">
+                        </ng-template>
+                    </div>
+                    <div *ngIf="isEntrepreneur">
+                        <ng-container *ngIf="users.length > 0; else noUsersFound">
+                            <div *ngFor="let user of users">
+                                <app-group-card [user]="user" [isSelectingCandidates]="false"></app-group-card>
+                            </div>
+                        </ng-container>
+                        <ng-template #noUsersFound>
+                            <h4 class="center fw-bold">Oops! We couln't find any users</h4>
+                            <img class="center smallest-image mt-5" src="{{ postsNotFoundImage }}">
+                        </ng-template>
+                    </div>
                 </div>
             </div>
         </div>

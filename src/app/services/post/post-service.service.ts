@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Post } from '../interfaces/PostInterface';
 import { environment } from '../../../environments/environment.prod';
-import { SearchData } from 'src/app/components/searcher/interfaces/SearchEventInterface';
+import { SearchData } from 'src/app/components/searchers/searcher/interfaces/SearchEventInterface';
 
 @Injectable({
   providedIn: 'root'

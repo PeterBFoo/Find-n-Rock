@@ -17,8 +17,8 @@ export class UserService {
   private baseUrl = environment.apiUrl;
 
   private profile = this.baseUrl + '/auth/profile';
+  private profiles = this.baseUrl + '/auth/profiles';
   private loginUrl = this.baseUrl + '/login';
-  private logoutUrl = this.baseUrl + '/logout';
   private signupUrl = this.baseUrl + '/register';
   private updateUserUrl = this.baseUrl + '/auth/profile/edit';
 
@@ -80,6 +80,23 @@ export class UserService {
 
   getUserByUsername(username: string): Observable<User> {
     return this.http.get<User>(`${this.profile}/${username}`, {
+      withCredentials: true
+    });
+  }
+
+  getProfilesOfGroups(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.profiles}?type=group`, {
+      withCredentials: true
+    });
+  }
+
+  getFilteredProfilesOfGroups(searchData: any): Observable<User[]> {
+    let url = `${this.profiles}?type=group`
+
+    if (searchData.country) url += `&country=${searchData.country}`
+    if (searchData.genre) url += `&genre=${searchData.genre}`
+
+    return this.http.get<User[]>(url, {
       withCredentials: true
     });
   }

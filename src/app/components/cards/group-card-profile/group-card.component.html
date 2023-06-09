@@ -2,21 +2,21 @@
     <div class="card-body">
         <div class="row">
             <div class="col-auto">
-                <img src="{{suscriber.image}}" alt="Post image">
+                <img src="{{user.image}}" alt="Post image">
             </div>
             <div class="col pl-0 align-self-center">
-                <h5 class="card-title mb-1">{{suscriber.username}}</h5>
-                <p class="card-text mb-0"><strong>Name</strong>: {{suscriber.name}}</p>
-                <p class="card-text mb-0"><strong>Email</strong>: {{suscriber.email}}</p>
-                <p class="card-text mb-0"><strong>Phone</strong>: {{suscriber.phone}}</p>
-                <p class="card-text mb-0"><strong>Country</strong>: {{suscriber.country}}</p>
-                <p class="card-text mb-0"><strong>Members</strong>: {{suscriber.integrants}}</p>
+                <h5 class="card-title mb-1">{{user.username}}</h5>
+                <p class="card-text mb-0"><strong>Name</strong>: {{user.name}}</p>
+                <p class="card-text mb-0"><strong>Email</strong>: {{user.email}}</p>
+                <p class="card-text mb-0"><strong>Phone</strong>: {{user.phone}}</p>
+                <p class="card-text mb-0"><strong>Country</strong>: {{user.country}}</p>
+                <p class="card-text mb-0"><strong>Members</strong>: {{user.integrants}}</p>
                 <p><strong>Prefered music genres</strong>:
-                    <span *ngFor="let genre of suscriber.musicalGenres">
+                    <span *ngFor="let genre of user.musicalGenres">
                         {{genre.name}}
                     </span>
                 </p>
-                <div class="col-auto" routerLink="/user/profile/{{suscriber.username}}">
+                <div class="col-auto" routerLink="/user/profile/{{user.username}}">
                     <button class="btn btn-primary">See profile</button>
                 </div>
                 <div class="row mt-3">
@@ -26,10 +26,10 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col">
-                        <p class="card-text font-weight-bold mb-0">{{suscriber.description}}</p>
+                        <p class="card-text font-weight-bold mb-0">{{user.description}}</p>
                     </div>
 
-                    <div class="col-auto">
+                    <div *ngIf="isSelectingCandidates" class="col-auto">
                         <div class="form-check">
                             <label class="form-check-label" for="suscriberSelector">
                                 Select candidate

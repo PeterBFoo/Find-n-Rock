@@ -10,8 +10,12 @@
     margin: 0 auto;
 }
 
-/* Clase para reducir el tamaño de la imagen */
 .small-image {
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 30%;
+    max-height: 30%;
+}
+
+.smallest-image {
+    max-width: 20%;
+    max-height: 20%;
 }

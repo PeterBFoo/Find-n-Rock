@@ -9,7 +9,8 @@
                 <h4 class="mb-3"><strong>Suscriptions of post</strong></h4>
                 <div *ngFor="let suscriber of suscriptions">
                     <app-group-card (unselectCandidateEvent)="removeCandidate($event)"
-                        (selectCandidateEvent)="addSelectedCandidate($event)" [suscriber]="suscriber"></app-group-card>
+                        (selectCandidateEvent)="addSelectedCandidate($event)" [isSelectingCandidates]="true"
+                        [user]="suscriber"></app-group-card>
                 </div>
             </ng-container>
             <ng-template #noSuscriptions>

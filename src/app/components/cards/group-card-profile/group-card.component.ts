@@ -7,24 +7,21 @@ import { User } from 'src/app/services/interfaces/UserInterface';
   styleUrls: ['./group-card.component.scss']
 })
 export class GroupCardComponent {
-  @Input() suscriber!: User;
+  @Input() user!: User;
+  @Input() isSelectingCandidates!: boolean;
   @Output() selectCandidateEvent = new EventEmitter<string>()
   @Output() unselectCandidateEvent = new EventEmitter<string>()
   isCandidateSelected: boolean = false;
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.suscriber);
-  }
-
   onSelectCandidate() {
     this.isCandidateSelected = !this.isCandidateSelected;
 
     if (this.isCandidateSelected) {
-      this.selectCandidateEvent.emit(this.suscriber.username);
+      this.selectCandidateEvent.emit(this.user.username);
     } else {
-      this.unselectCandidateEvent.emit(this.suscriber.username);
+      this.unselectCandidateEvent.emit(this.user.username);
     }
 
   }

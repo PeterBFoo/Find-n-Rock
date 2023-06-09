@@ -1,0 +1,33 @@
+<div class="col-md-3">
+    <form>
+        <div class="mb-3">
+            <h5 class="fw-bold">Filters</h5>
+        </div>
+        <div *ngIf="genresLoaded">
+            <div class="mb-3">
+                <label for="genreSelector" class="form-label">Genre</label>
+                <ng-select [(ngModel)]="selectedGenre" id="genreSelector" name="selectedGenre"
+                    placeholder="Search genres">
+                    <ng-option value="" disabled selected>Choose a genre</ng-option>
+                    <ng-option *ngFor="let genre of genres" [value]="genre.name">{{genre.name}}
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div *ngIf="dataLoaded">
+            <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <ng-select [(ngModel)]="selectedCountry" name="selectedCountry" id="country">
+                    <ng-option value="" disabled selected>Choose a country</ng-option>
+                    <ng-option *ngFor="let country of countries" [value]="country.name">
+                        {{ country.name }}
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!areFiltersActive()" (click)="searchUsers()"
+            class="mb-3 btn btn-primary">Search</button>
+        <button *ngIf="areFiltersActive()" type="submit" (click)="removeFilters()" class="btn btn-danger">Remove
+            filters</button>
+    </form>
+</div>

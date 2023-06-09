@@ -11,7 +11,7 @@ import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SearcherComponent } from './components/searcher/searcher.component';
+import { SearcherComponent } from './components/searchers/searcher/searcher.component';
 import { PostComponent } from './components/cards/post-card-home/post.component';
 import { PostViewComponent } from './views/post-view/post-view.component';
 import { MyPostsComponent } from './views/myposts/myposts.component';
@@ -30,6 +30,7 @@ import { PublicProfileComponent } from './views/public-profile/public-profile.co
 import { FooterSmallComponent } from './components/footers/footer-small/footer-small.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { UserSearcherComponent } from './components/searchers/user-searcher/user-searcher.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { LogoComponent } from './components/logo/logo.component';
     FooterSmallComponent,
     LandingPageComponent,
     LogoComponent,
+    UserSearcherComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,6 @@ import { LogoComponent } from './components/logo/logo.component';
     NgSelectModule
   ],
   providers: [
-    // Registrar el interceptor como un proveedor con la clave HTTP_INTERCEPTORS
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

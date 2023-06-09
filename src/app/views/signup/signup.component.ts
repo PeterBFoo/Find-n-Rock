@@ -144,11 +144,11 @@ export class SignupComponent implements OnInit {
       role: "entrepreneur"
     }
     this.userService.signupEntrepreneur(entrepreneur).pipe(
-      catchError((error: any) => {
-        this.errorMessage = error.error;
-        throw error;
+      catchError((res: any) => {
+        this.errorMessage = res.error["error"] || res.error;
+        throw res;
       }))
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.router.navigate(['/login']);
       });
   }
@@ -170,11 +170,11 @@ export class SignupComponent implements OnInit {
     }
 
     this.userService.signupMusicGroup(musicGroup).pipe(
-      catchError((error: any) => {
-        this.errorMessage = error.error;
-        throw error;
+      catchError((res: any) => {
+        this.errorMessage = res.error["error"] || res.error;
+        throw res;
       }))
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.router.navigate(['/login']);
       });
   }

@@ -34,12 +34,10 @@ export class SuscriptionsViewComponent {
 
   addSelectedCandidate(username: any) {
     this.selectedCandidates.push(username);
-    console.log(this.selectedCandidates);
   }
 
   removeCandidate(username: any) {
     this.selectedCandidates = this.selectedCandidates.filter(candidate => candidate !== username);
-    console.log(this.selectedCandidates);
   }
 
   chooseCandidates() {

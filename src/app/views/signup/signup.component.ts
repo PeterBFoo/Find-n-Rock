@@ -87,12 +87,6 @@ export class SignupComponent implements OnInit {
       isValid = false;
     }
 
-    let imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
-    if (!imageRegex.test(this.image)) {
-      this.errorMessage = "Please enter a valid image url";
-      isValid = false;
-    }
-
     if (isNaN(this.integrants) && this.musicGroup) {
       this.errorMessage = "Integrants must be a number"
       isValid = false

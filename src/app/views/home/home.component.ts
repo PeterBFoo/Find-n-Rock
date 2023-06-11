@@ -64,4 +64,8 @@ export class HomeComponent {
       this.users = users;
     })
   }
+
+  hideAlert(id: string) {
+    document.getElementById(id)?.setAttribute("hidden", "true")
+  }
 }

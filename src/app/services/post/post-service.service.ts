@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Post } from '../interfaces/PostInterface';
 import { environment } from '../../../environments/environment.prod';
 import { SearchData } from 'src/app/components/searchers/searcher/interfaces/SearchEventInterface';

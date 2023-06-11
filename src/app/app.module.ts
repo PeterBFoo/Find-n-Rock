@@ -25,12 +25,15 @@ import { EditPostComponent } from './views/edit-post/edit-post.component';
 import { SuscriptionsViewComponent } from './views/suscriptions-view/suscriptions-view.component';
 import { GroupCardComponent } from './components/cards/group-card-profile/group-card.component';
 import { FooterComponent } from './components/footers/footer/footer.component';
-import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 import { PublicProfileComponent } from './views/public-profile/public-profile.component';
 import { FooterSmallComponent } from './components/footers/footer-small/footer-small.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { UserSearcherComponent } from './components/searchers/user-searcher/user-searcher.component';
+import { WorkExperienceModalComponent } from './components/modals/work-experience-modal/work-experience-modal.component';
+import { WorkExperienceCardComponent } from './components/cards/work-experience-card/work-experience-card.component';
+import { EditWorkExperienceModalComponent } from './components/modals/edit-work-experience-modal/edit-work-experience-modal.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import { UserSearcherComponent } from './components/searchers/user-searcher/user
     LandingPageComponent,
     LogoComponent,
     UserSearcherComponent,
+    WorkExperienceModalComponent,
+    WorkExperienceCardComponent,
+    EditWorkExperienceModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,11 @@
 <app-header [user]="currentUser"></app-header>
-<section *ngIf="dataLoaded" class="section about-section gray-bg" id="about">
+<section *ngIf="dataLoaded" class="section about-section gray-bg mb-5" id="about">
     <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-sm-1">
+                <button class="btn btn-big" routerLink="/user/profile">⚙️</button>
+            </div>
+        </div>
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6">
                 <div class="about-text go-to">
@@ -39,7 +44,8 @@
                             <div *ngIf="isMusician" class="media">
                                 <label>Related genres</label>
                                 <p>
-                                    <span *ngFor="let genre of userProfile.musicalGenres">
+                                    <span *ngFor="let genre of userProfile.musicalGenres" class="badge bg-secondary
+                                    text-white mx-1">
                                         {{genre.name}}
                                     </span>
                                 </p>
@@ -83,3 +89,44 @@
         </div>
     </div>
 </section>
+<div *ngIf="isMusician">
+    <div *ngIf="workExperiences.length > 0" class="d-flex justify-content-start mx-5 mt-4">
+        <div class="ml-5">
+            <h4>
+                <strong>Experiences</strong>
+                <div *ngIf="isProfileOwner">
+                    <button class="btn btn-plus text-center" data-bs-toggle="modal"
+                        data-bs-target="#workExperienceModal">+</button>
+                </div>
+            </h4>
+
+        </div>
+        <app-work-experience-modal></app-work-experience-modal>
+    </div>
+    <hr>
+    <section *ngIf="dataLoaded && workExperiences.length == 0 && isProfileOwner">
+        <div class="d-flex justify-content-center align-items-center ">
+            <div class="col-sm-3 mt-3 mb-3 mx-5">
+                <div class=" p-1">
+                    <h4 class="mx-2"><strong>Something feels off...</strong></h4>
+                    <p class="text-center">You don't have any work experience yet. You can create a few past work
+                        experiences to improve your possibilities to be chosen in a job offer.</p>
+                </div>
+            </div>
+            <div class="col-sm-3 mx-5">
+                <button class="btn btn-primary w-50" data-bs-toggle="modal" data-bs-target="#workExperienceModal">Create
+                    a new work experience</button>
+            </div>
+            <app-work-experience-modal></app-work-experience-modal>
+        </div>
+    </section>
+    <section *ngIf="dataLoaded">
+        <div *ngIf="workExperiences.length > 0" class="card-group d-flex justify-content-center mx-5 mb-4 mt-2">
+
+            <div *ngFor="let experience of workExperiences" class="column col-lg-5">
+                <app-work-experience-card [isOwner]="isProfileOwner"
+                    [workExperience]="experience"></app-work-experience-card>
+            </div>
+        </div>
+    </section>
+</div>

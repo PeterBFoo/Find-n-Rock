@@ -1,0 +1,24 @@
+<div class="card border-dark mb-3 mx-3">
+    <div class="card-body">
+        <h5 class="card-title">
+            {{workExperience.name}}
+        </h5>
+        <hr>
+        <h6 class="card-subtitle mb-2 text-muted">{{initialDateFormatted}} - {{endDateFormatted}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{workExperience.enterprise}}</h6>
+        <p class="card-text">{{workExperience.description}}</p>
+        <div id="location">
+            <span class="card-text">{{workExperience.country}}, {{workExperience.region}},
+                {{workExperience.city}}</span>
+        </div>
+    </div>
+    <div *ngIf="isOwner" class="card-footer">
+        <button #editButton type="button" class="btn btn-primary mx-2" data-bs-toggle="modal">
+            Edit
+        </button>
+        <app-edit-work-experience-modal [workExperience]="workExperience"></app-edit-work-experience-modal>
+        <button type="button" class="btn btn-danger mx-2" (click)="deleteWorkExperience()">
+            Delete
+        </button>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="modal fade" id="workExperienceModal" tabindex="-1" aria-labelledby="workExperienceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-group px-3">
+                    <h5>Create a new work experience</h5>
+                    <hr>
+                    <div class="mt-3">
+                        <label for="name" class="col-12 text-left pl-0">Title</label>
+                        <input [(ngModel)]="name" type="text" class="col-md-8 form-control" name="name"
+                            placeholder="Title of the work experience">
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="enterprise" class="col-12 text-left pl-0">Enterprise</label>
+                        <input [(ngModel)]="enterprise" type="text" class="col-md-8 form-control" name="enterprise"
+                            placeholder="Enterprise of the work experience">
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="description" class="col-12 text-left pl-0">Description</label>
+                        <textarea [(ngModel)]="description" type="text" class="col-md-8 form-control" name="description"
+                            placeholder="Description of the work experience" cols="3"></textarea>
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="initialDate" class="col-12 text-left pl-0">Initial date</label>
+                        <input [(ngModel)]="initialDate" type="date" class="col-md-8 form-control" name="initialDate"
+                            placeholder="Initial date of the work experience">
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="endDate" class="col-12 text-left pl-0">End date</label>
+                        <input [(ngModel)]="endDate" type="date" class="col-md-8 form-control" name="endDate"
+                            placeholder="End date of the work experience">
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="country" class="col-12 text-left pl-0">Country</label>
+                        <input [(ngModel)]="country" type="text" class="col-md-8 form-control" name="country"
+                            placeholder="Country of the work experience">
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="region" class="col-12 text-left pl-0">Region</label>
+                        <input [(ngModel)]="region" type="text" class="col-md-8 form-control" name="region"
+                            placeholder="Region of the work experience">
+                    </div>
+
+                    <div class="mt-3">
+                        <label for="city" class="col-12 text-left pl-0">City</label>
+                        <input [(ngModel)]="city" type="text" class="col-md-8 form-control" name="city"
+                            placeholder="City of the work experience">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div *ngIf="!loading">
+                    <button class="btn btn-primary" [disabled]="!validForm()"
+                        (click)="onCreateWorkExperience()">Create</button>
+                </div>
+                <div *ngIf="loading">
+                    <button class="btn btn-primary" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

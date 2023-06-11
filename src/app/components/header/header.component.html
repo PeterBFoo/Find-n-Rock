@@ -11,7 +11,7 @@
     <ul>
       <h4>{{username}}</h4>
       <img src="{{userimage}}">
-      <li><a routerLink="/user/profile">My profile</a></li>
+      <li><a routerLink="/user/profile/{{username}}">My profile</a></li>
       <div *ngIf="isGroup">
         <li><a routerLink="/user/posts/suscribed">Suscribed posts</a></li>
       </div>
